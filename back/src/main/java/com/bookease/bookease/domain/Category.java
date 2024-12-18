@@ -2,27 +2,25 @@ package com.bookease.bookease.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+
 import java.util.UUID;
 
-@Table(name = "events")
 @Entity
+@Table(name = "categories")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Event {
+
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String name;
-
     private String description;
 
-    private LocalDateTime dateTime;
-
-    private Double ticketPrice;
+    private String name;
 
 }

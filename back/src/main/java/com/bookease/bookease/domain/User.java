@@ -18,6 +18,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    private Role role;
+
     private String name;
 
     private String identifier;
