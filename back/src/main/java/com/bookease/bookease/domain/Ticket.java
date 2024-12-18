@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Table(name = "tickets")
@@ -21,5 +22,34 @@ public class Ticket {
 
     private LocalDateTime bookingDate;
 
-    private String paymentStatus;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
+    private Double ticketPrice;
+
+    // Optional, for seated events
+    private String seatNumber;
+
+    private String ticketType;
+    // Optional, for seated events
+
+    private LocalDateTime validUntil;
+
+
+    public enum PaymentStatus {
+        PAID,
+        PENDING,
+        FAILED
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne()
+    @JoinColumn(name = "event_id", nullable = false)
+    private Event event;
+
+
+
 }

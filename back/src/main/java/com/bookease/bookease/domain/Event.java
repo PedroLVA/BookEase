@@ -2,7 +2,10 @@ package com.bookease.bookease.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.cglib.core.Local;
+
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Table(name = "events")
@@ -21,8 +24,42 @@ public class Event {
 
     private String description;
 
-    private LocalDateTime dateTime;
+    private LocalDateTime date;
 
-    private Double ticketPrice;
+
+
+    private LocalDateTime publishingDate;
+
+    //Endereço
+
+    private String address;
+
+    private String city;
+
+    private String state;
+
+    private String homeNumber;
+
+
+    @ManyToMany(mappedBy = "events")
+    private Set<User> attendees;
+
+    @OneToMany(mappedBy = "event")
+    private Set<Ticket> tickets;
+
+    @ManyToMany
+    @JoinTable(
+            name = "event_category",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category>categories;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Image> images;
+
+    @ManyToOne
+    @JoinColumn(name = "organizer_id", nullable = false)
+    private Organizer organizer;
 
 }
