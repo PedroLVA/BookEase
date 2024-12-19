@@ -26,7 +26,7 @@ public class Event {
 
     private LocalDateTime date;
 
-
+    private boolean isActive;
 
     private LocalDateTime publishingDate;
 

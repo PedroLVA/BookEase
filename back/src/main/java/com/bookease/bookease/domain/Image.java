@@ -12,7 +12,11 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private Byte[] imageData;
+    private byte[] imageData;
+
+    @Enumerated(EnumType.STRING)
+    private ImageType type;  // Enum to specify if it's an EVENT or ORGANIZER image
+
 
     @ManyToOne
     @JoinColumn(name = "event_id")
@@ -21,9 +25,6 @@ public class Image {
     @OneToOne
     @JoinColumn(name = "organizer_id")
     private Organizer organizer;  // Nullable if it's an event's image
-
-    @Enumerated(EnumType.STRING)
-    private ImageType type;  // Enum to specify if it's an EVENT or ORGANIZER image
 
     public enum ImageType {
         EVENT,

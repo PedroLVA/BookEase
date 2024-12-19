@@ -1,13 +1,20 @@
 package com.bookease.bookease.domain;
 
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import com.bookease.bookease.dtos.user.UserRegisterRequestDTO;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Set;
 
+@Entity
+@PrimaryKeyJoinColumn(name = "id")
+@Table(name = "organizers")
 public class Organizer extends User {
+
+    public Organizer(UserRegisterRequestDTO data) {
+        super(data);  // Call the User constructor with DTO data
+    }
 
     @OneToMany(mappedBy = "organizer")
     private Set<Event> events;
