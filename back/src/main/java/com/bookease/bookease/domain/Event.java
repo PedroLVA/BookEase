@@ -60,6 +60,6 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "organizer_id", nullable = false)
-    private Organizer organizer;
+    private User organizer;
 
 }

@@ -24,7 +24,7 @@ public class Image {
 
     @OneToOne
     @JoinColumn(name = "organizer_id")
-    private Organizer organizer;  // Nullable if it's an event's image
+    private User organizer;  // Nullable if it's an event's image
 
     public enum ImageType {
         EVENT,

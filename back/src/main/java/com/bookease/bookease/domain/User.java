@@ -54,7 +54,7 @@ public class User implements UserDetails {
         this.password = data.password();
         this.phoneNumber = data.phoneNumber();
         this.dateOfBirth = data.dateOfBirth();
-        this.role = Role.USER;
+        this.role = data.role() != null ? data.role() : Role.USER;
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //Cascade type faz as operações propagarem para os filhos (deletar user deleta

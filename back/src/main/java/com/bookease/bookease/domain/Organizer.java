@@ -8,8 +8,7 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
-@Table(name = "organizers")
+@DiscriminatorValue("ORGANIZER")
 public class Organizer extends User {
 
     public Organizer(UserRegisterRequestDTO data) {
