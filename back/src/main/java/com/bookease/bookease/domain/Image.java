@@ -1,11 +1,10 @@
 package com.bookease.bookease.domain;
 
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
-@Table(name = "images")
 @Entity
+@Table(name = "images")
 public class Image {
 
     @Id
@@ -15,21 +14,19 @@ public class Image {
     private byte[] imageData;
 
     @Enumerated(EnumType.STRING)
-    private ImageType type;  // Enum to specify if it's an EVENT or ORGANIZER image
-
+    private ImageType type;  // Enum to specify context (EVENT or ORGANIZER)
 
     @ManyToOne
     @JoinColumn(name = "event_id")
-    private Event event;  // Nullable if it's an organizer's image
+    private Event event;  // Event can have multiple images.
 
     @OneToOne
     @JoinColumn(name = "organizer_id")
-    private User organizer;  // Nullable if it's an event's image
+    private User organizer;  // Organizer can have only one image.
 
     public enum ImageType {
         EVENT,
         ORGANIZER
     }
-
-
 }
+

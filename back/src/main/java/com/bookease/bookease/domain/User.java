@@ -18,6 +18,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @EqualsAndHashCode
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails {
 
@@ -41,10 +42,6 @@ public class User implements UserDetails {
 
     private LocalDateTime refreshTokenExpiryTime;
 
-
-    public User() {
-        // no-argument constructor
-    }
 
 
     //custom constructor for registerDTo
