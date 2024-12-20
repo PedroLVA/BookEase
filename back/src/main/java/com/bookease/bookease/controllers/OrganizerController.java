@@ -1,35 +1,34 @@
 package com.bookease.bookease.controllers;
+
 import com.bookease.bookease.domain.LombokTest;
+import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.UserGetAllResponseDTO;
 import com.bookease.bookease.dtos.user.UserRegisterRequestDTO;
+import com.bookease.bookease.services.OrganizerService;
 import com.bookease.bookease.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Method;
 import java.util.List;
-import java.util.stream.Collectors;
-
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/organizer")
 @AllArgsConstructor
-public class UserController {
-    private final UserService userService;
+public class OrganizerController {
+    private final OrganizerService organizerService;
 
     @GetMapping("/get-all")
     public List<UserGetAllResponseDTO> getAllUsers() {
-        return  this.userService.getAllUsers();
+        return  this.organizerService.getAllUsers();
     }
 
     @PostMapping
     public ResponseEntity registerUser(@RequestBody UserRegisterRequestDTO userRegisterRequestDTO){
-        User newUser = new User(userRegisterRequestDTO);
-        userService.registerNewUser(newUser);
+        Organizer newOrganizer = new Organizer(userRegisterRequestDTO);
+        organizerService.registerNewUser(newOrganizer);
 
-        return ResponseEntity.ok(newUser);
+        return ResponseEntity.ok(newOrganizer);
     }
 
     @GetMapping("/user-methods")

@@ -7,9 +7,13 @@ import lombok.*;
 
 import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @DiscriminatorValue("ORGANIZER")
 public class Organizer extends User {
+
+
 
     public Organizer(UserRegisterRequestDTO data) {
         super(data);  // Call the User constructor with DTO data

@@ -19,13 +19,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)  // Use SINGLE_TABLE inheritance
+@DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.STRING)
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Enumerated(EnumType.STRING)  // Ensures role is stored as a string
     private Role role;
 
     private String name;
@@ -42,8 +44,6 @@ public class User implements UserDetails {
 
     private LocalDateTime refreshTokenExpiryTime;
 
-
-
     //custom constructor for registerDTo
     public User(UserRegisterRequestDTO data){
         this.name = data.name();
@@ -51,7 +51,7 @@ public class User implements UserDetails {
         this.password = data.password();
         this.phoneNumber = data.phoneNumber();
         this.dateOfBirth = data.dateOfBirth();
-        this.role = data.role() != null ? data.role() : Role.USER;
+        this.role = data.role();
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //Cascade type faz as operações propagarem para os filhos (deletar user deleta

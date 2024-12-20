@@ -1,0 +1,2 @@
+ALTER TABLE users
+ADD COLUMN discriminator VARCHAR(50) NOT NULL;
