@@ -2,9 +2,8 @@ package com.bookease.bookease.services;
 
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.User;
-import com.bookease.bookease.dtos.user.UserGetAllResponseDTO;
+import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.repositories.OrganizerRepository;
-import com.bookease.bookease.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +15,10 @@ import java.util.stream.Collectors;
 public class OrganizerService {
     private final OrganizerRepository organizerRepository;
 
-    public List<UserGetAllResponseDTO> getAllUsers(){
+    public List<UserGetResponseDTO> getAllUsers(){
         List<Organizer> users = organizerRepository.findAll();
         return users.stream()
-                .map(organizer -> new UserGetAllResponseDTO(
+                .map(organizer -> new UserGetResponseDTO(
                         organizer.getId(),
                         organizer.getRole(),
                         organizer.getName(),

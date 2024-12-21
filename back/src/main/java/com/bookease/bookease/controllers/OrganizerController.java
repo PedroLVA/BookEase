@@ -1,12 +1,9 @@
 package com.bookease.bookease.controllers;
 
-import com.bookease.bookease.domain.LombokTest;
 import com.bookease.bookease.domain.Organizer;
-import com.bookease.bookease.domain.User;
-import com.bookease.bookease.dtos.user.UserGetAllResponseDTO;
+import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.dtos.user.UserRegisterRequestDTO;
 import com.bookease.bookease.services.OrganizerService;
-import com.bookease.bookease.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +16,7 @@ public class OrganizerController {
     private final OrganizerService organizerService;
 
     @GetMapping("/get-all")
-    public List<UserGetAllResponseDTO> getAllUsers() {
+    public List<UserGetResponseDTO> getAllUsers() {
         return  this.organizerService.getAllUsers();
     }
 
@@ -31,9 +28,4 @@ public class OrganizerController {
         return ResponseEntity.ok(newOrganizer);
     }
 
-    @GetMapping("/user-methods")
-    public ResponseEntity<String> getUserMethods() {
-        LombokTest lombok = new LombokTest("Funcionou", 12);
-        return ResponseEntity.ok(lombok.getName());
-    }
 }
