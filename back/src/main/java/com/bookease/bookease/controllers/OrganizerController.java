@@ -20,12 +20,5 @@ public class OrganizerController {
         return  this.organizerService.getAllUsers();
     }
 
-    @PostMapping
-    public ResponseEntity registerUser(@RequestBody UserRegisterRequestDTO userRegisterRequestDTO){
-        Organizer newOrganizer = new Organizer(userRegisterRequestDTO);
-        organizerService.registerNewUser(newOrganizer);
-
-        return ResponseEntity.ok(newOrganizer);
-    }
 
 }

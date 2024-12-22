@@ -1,5 +1,6 @@
 package com.bookease.bookease.domain;
 
+import com.bookease.bookease.dtos.user.RegisterDTO;
 import com.bookease.bookease.dtos.user.UserRegisterRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,10 +46,10 @@ public class User implements UserDetails {
     private LocalDateTime refreshTokenExpiryTime;
 
     //custom constructor for registerDTo
-    public User(UserRegisterRequestDTO data){
+    public User(RegisterDTO data, String encryptedPassword){
         this.name = data.name();
         this.email = data.email();
-        this.password = data.password();
+        this.password = encryptedPassword;
         this.phoneNumber = data.phoneNumber();
         this.dateOfBirth = data.dateOfBirth();
         this.role = data.role();
@@ -79,7 +80,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return email;
     }
 
     @Override

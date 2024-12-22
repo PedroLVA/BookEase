@@ -20,13 +20,4 @@ public class UserController {
         return  this.userService.getAllUsers();
     }
 
-    @PostMapping
-    public ResponseEntity registerUser(@RequestBody UserRegisterRequestDTO userRegisterRequestDTO){
-        User newUser = new User(userRegisterRequestDTO);
-        userService.registerNewUser(newUser);
-
-        return ResponseEntity.ok(newUser);
-    }
-
-
 }
