@@ -2,11 +2,13 @@ package com.bookease.bookease.controllers;
 
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.AuthenticationDTO;
+import com.bookease.bookease.dtos.user.LoginResponseDTO;
 import com.bookease.bookease.dtos.user.RegisterDTO;
 import com.bookease.bookease.infra.security.TokenService;
 import com.bookease.bookease.repositories.UserRepository;
 import com.bookease.bookease.services.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("auth")
 @AllArgsConstructor
 public class AuthController {
-    private final UserService userService;
+
+
+
     private final AuthenticationManager authenticationManager;
+
+
     private final UserRepository userRepository;
+
     private final TokenService tokenService;
 
     @PostMapping("/login")
@@ -33,7 +40,7 @@ public class AuthController {
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")

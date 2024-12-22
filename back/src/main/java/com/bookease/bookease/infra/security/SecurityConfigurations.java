@@ -1,5 +1,6 @@
 package com.bookease.bookease.infra.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfigurations {
+
+    private final SecurityFilter securityFilter;
 
 
     @Bean
@@ -27,7 +31,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/user/get-all").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/get-all").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
