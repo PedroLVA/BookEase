@@ -3,6 +3,7 @@ package com.bookease.bookease.controllers;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.AuthenticationDTO;
 import com.bookease.bookease.dtos.user.RegisterDTO;
+import com.bookease.bookease.infra.security.TokenService;
 import com.bookease.bookease.repositories.UserRepository;
 import com.bookease.bookease.services.UserService;
 import lombok.AllArgsConstructor;
@@ -23,11 +24,14 @@ public class AuthController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+    private final TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data){
         var UsernamePassword = new UsernamePasswordAuthenticationToken(data .email(), data.password());
         var auth = this.authenticationManager.authenticate(UsernamePassword);
+
+        var token = tokenService.generateToken((User) auth.getPrincipal());
 
         return ResponseEntity.ok().build();
     }
