@@ -1,8 +1,5 @@
 package com.bookease.bookease.domain;
-
-
 import com.bookease.bookease.dtos.user.RegisterDTO;
-import com.bookease.bookease.dtos.user.UserRegisterRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +14,7 @@ public class Organizer extends User {
 
 
     public Organizer(RegisterDTO data, String encryptedPassword) {
-        super(data, encryptedPassword);  // Call the User constructor with DTO data
+        super(data, encryptedPassword);
     }
 
     @OneToMany(mappedBy = "organizer")

@@ -26,11 +26,10 @@ public class Ticket {
 
     private Double ticketPrice;
 
-    // Optional, for seated events
     private String seatNumber;
 
     private String ticketType;
-    // Optional, for seated events
+
 
     private LocalDateTime validUntil;
 

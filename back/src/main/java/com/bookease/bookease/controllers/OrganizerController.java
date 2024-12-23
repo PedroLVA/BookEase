@@ -1,14 +1,10 @@
 package com.bookease.bookease.controllers;
-
-import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
-import com.bookease.bookease.dtos.user.UserRegisterRequestDTO;
 import com.bookease.bookease.services.OrganizerService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 @RestController
 @RequestMapping("/organizer")
 @AllArgsConstructor

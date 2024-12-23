@@ -14,15 +14,15 @@ public class Image {
     private byte[] imageData;
 
     @Enumerated(EnumType.STRING)
-    private ImageType type;  // Enum to specify context (EVENT or ORGANIZER)
+    private ImageType type;
 
     @ManyToOne
     @JoinColumn(name = "event_id")
-    private Event event;  // Event can have multiple images.
+    private Event event;
 
     @OneToOne
     @JoinColumn(name = "organizer_id")
-    private User organizer;  // Organizer can have only one image.
+    private User organizer;
 
     public enum ImageType {
         EVENT,

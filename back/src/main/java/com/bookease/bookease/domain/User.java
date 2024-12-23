@@ -1,7 +1,5 @@
 package com.bookease.bookease.domain;
-
 import com.bookease.bookease.dtos.user.RegisterDTO;
-import com.bookease.bookease.dtos.user.UserRegisterRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
