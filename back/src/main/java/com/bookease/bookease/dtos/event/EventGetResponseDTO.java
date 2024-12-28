@@ -20,7 +20,7 @@ public record EventGetResponseDTO(
         String city,
         String state,
         String homeNumber,
-        UserGetResponseDTO organizer,
+        UUID organizerId,
         Set<UserEventResponseDTO> attendees,
         Set<CategoryResponseDTO> categories,
         Set<ImageResponseDTO> images

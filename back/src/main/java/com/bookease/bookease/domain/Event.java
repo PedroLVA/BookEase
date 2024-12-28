@@ -38,8 +38,17 @@ public class Event {
     private String homeNumber;
 
 
-    @ManyToMany(mappedBy = "events")
+    //here
+    @ManyToMany
+    @JoinTable(
+            name = "event_user", // Name of the join table
+            joinColumns = @JoinColumn(name = "user_id"), // Foreign key for User
+            inverseJoinColumns = @JoinColumn(name = "event_id") // Foreign key for Event
+    )
     private Set<User> attendees;
+
+
+
 
     @OneToMany(mappedBy = "event")
     private Set<Ticket> tickets;

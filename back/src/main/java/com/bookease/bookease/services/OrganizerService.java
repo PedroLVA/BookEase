@@ -15,6 +15,11 @@ import java.util.stream.Collectors;
 public class OrganizerService {
     private final OrganizerRepository organizerRepository;
 
+    public Organizer getUserByEmail(String email){
+        return (Organizer) organizerRepository.findByEmail(email);
+
+    }
+
     public List<UserGetResponseDTO> getAllUsers(){
         List<Organizer> users = organizerRepository.findAll();
         return users.stream()

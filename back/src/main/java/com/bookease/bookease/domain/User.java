@@ -58,12 +58,7 @@ public class User implements UserDetails {
     private Set<Ticket> tickets;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_event", // Name of the join table
-            joinColumns = @JoinColumn(name = "user_id"), // Foreign key for User
-            inverseJoinColumns = @JoinColumn(name = "event_id") // Foreign key for Event
-    )
+    @ManyToMany(mappedBy = "attendees")
     private Set<Event> events;
 
 
