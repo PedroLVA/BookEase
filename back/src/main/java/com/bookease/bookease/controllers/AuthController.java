@@ -51,7 +51,7 @@ public class AuthController {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
 
-        if (data.role() == Role.USER) {
+        if (data.role() == Role.USER || data.role() == Role.ADMIN ) {
             User newUser = new User(data, encryptedPassword);
             this.userRepository.save(newUser);
         } else if (data.role() == Role.ORGANIZER) {
