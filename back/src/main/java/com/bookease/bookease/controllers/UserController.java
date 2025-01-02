@@ -13,7 +13,7 @@ public class UserController {
     private final UserService userService;
     private final CategoryRepository categoryRepository;
 
-    @GetMapping("/get-all")
+    @GetMapping()
     public List<UserGetResponseDTO> getAllUsers() {
         return  this.userService.getAllUsers();
     }
