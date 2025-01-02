@@ -53,14 +53,8 @@ public class EventController {
 
     @DeleteMapping("/{eventId}")
     public ResponseEntity<?> deleteEvent(@PathVariable UUID eventId) {
-        try {
-            eventService.deleteEvent(eventId);
-            return ResponseEntity.ok("Event deleted successfully");
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting the event");
-        }
+        eventService.deleteEvent(eventId);
+        return ResponseEntity.ok("Event deleted successfully");
     }
 
     @Transactional
