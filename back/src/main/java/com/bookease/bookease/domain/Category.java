@@ -1,7 +1,10 @@
 package com.bookease.bookease.domain;
 import com.bookease.bookease.dtos.category.CategoryRequestDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -11,7 +14,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "events")
 
 public class Category {
 
@@ -19,17 +22,24 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String description;
-
     private String name;
 
+    private String description;
 
-    @ManyToMany(mappedBy = "categories") // Matches the relationship in Event
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY) // Matches the relationship in Event
     private Set<Event> events;
 
     public Category(CategoryRequestDTO data){
-        description = data.description();
         name = data.name();
+        description = data.description();
+
+    }
+    public void addEvent(Event event) {
+        if (events == null) {
+            events = new HashSet<>();
+        }
+        events.add(event);
     }
 
 }

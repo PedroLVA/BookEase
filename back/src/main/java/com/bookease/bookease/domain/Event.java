@@ -2,6 +2,7 @@ package com.bookease.bookease.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "categories")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -67,5 +68,12 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "organizer_id", nullable = false)
     private User organizer;
+
+    public void addCategory(Category category) {
+        if (categories == null) {
+            categories = new HashSet<>();
+        }
+        categories.add(category);
+    }
 
 }

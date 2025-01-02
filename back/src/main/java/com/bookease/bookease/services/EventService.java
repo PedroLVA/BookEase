@@ -1,5 +1,6 @@
 package com.bookease.bookease.services;
 
+import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.domain.Event;
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.dtos.category.CategoryResponseDTO;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -22,6 +25,10 @@ import java.util.stream.Collectors;
 public class EventService {
 
     private final EventRepository eventRepository;
+
+    public Optional<Event> getEventById(UUID id){
+        return eventRepository.findById(id);
+    }
 
     public ResponseEntity<List<EventGetResponseDTO>> getAllEvents(){
         List<Event> events = eventRepository.findAll();
@@ -66,6 +73,10 @@ public class EventService {
         event.setOrganizer(organizer);
 
         return eventRepository.save(event);
+    }
+
+    public void saveEvent(Event event) {
+        eventRepository.save(event);
     }
 
 }
