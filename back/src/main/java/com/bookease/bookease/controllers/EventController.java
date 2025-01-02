@@ -8,6 +8,7 @@ import com.bookease.bookease.dtos.event.EventRequestDTO;
 import com.bookease.bookease.services.CategoryService;
 import com.bookease.bookease.services.EventService;
 import com.bookease.bookease.services.OrganizerService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,18 @@ public class EventController {
         // Create the event
         Event event = eventService.createEvent(eventRequestDTO, organizer);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{eventId}")
+    public ResponseEntity<?> deleteEvent(@PathVariable UUID eventId) {
+        try {
+            eventService.deleteEvent(eventId);
+            return ResponseEntity.ok("Event deleted successfully");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting the event");
+        }
     }
 
     @Transactional

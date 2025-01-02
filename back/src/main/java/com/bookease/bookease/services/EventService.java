@@ -9,6 +9,7 @@ import com.bookease.bookease.dtos.event.EventRequestDTO;
 import com.bookease.bookease.dtos.image.ImageResponseDTO;
 import com.bookease.bookease.dtos.user.UserEventResponseDTO;
 import com.bookease.bookease.repositories.EventRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,12 @@ public class EventService {
 
     public void saveEvent(Event event) {
         eventRepository.save(event);
+    }
+
+
+    public ResponseEntity deleteEvent(UUID eventID){
+        eventRepository.deleteById(eventID);
+        return ResponseEntity.ok().build();
     }
 
 }
