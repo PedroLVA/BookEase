@@ -2,7 +2,9 @@ package com.bookease.bookease.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -19,6 +21,8 @@ public class Image {
     private UUID id;
 
     private byte[] imageData;
+
+    private @NotNull LocalDateTime insertedOn = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     private ImageType type;
