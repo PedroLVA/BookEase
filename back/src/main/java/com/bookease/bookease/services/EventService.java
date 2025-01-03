@@ -6,6 +6,7 @@ import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.dtos.category.CategoryResponseDTO;
 import com.bookease.bookease.dtos.event.EventGetResponseDTO;
 import com.bookease.bookease.dtos.event.EventRequestDTO;
+import com.bookease.bookease.dtos.image.ImageEventResponseDTO;
 import com.bookease.bookease.dtos.image.ImageResponseDTO;
 import com.bookease.bookease.dtos.user.UserEventResponseDTO;
 import com.bookease.bookease.repositories.EventRepository;
@@ -54,7 +55,7 @@ public class EventService {
                         .map(category -> new CategoryResponseDTO(category.getId(), category.getName(), category.getDescription()))
                         .collect(Collectors.toSet()),
                 event.getImages().stream()
-                        .map(image -> new ImageResponseDTO(image.getId(), Base64.getEncoder().encodeToString(image.getImageData()), image.getInsertedOn(), image.getType()))
+                        .map(image -> new ImageEventResponseDTO(image.getId()))
                         .collect(Collectors.toSet())
         )).collect(Collectors.toList());
 

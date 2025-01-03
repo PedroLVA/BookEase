@@ -1,6 +1,7 @@
 package com.bookease.bookease.dtos.event;
 
 import com.bookease.bookease.dtos.category.CategoryResponseDTO;
+import com.bookease.bookease.dtos.image.ImageEventResponseDTO;
 import com.bookease.bookease.dtos.image.ImageResponseDTO;
 import com.bookease.bookease.dtos.user.UserEventResponseDTO;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
@@ -23,6 +24,7 @@ public record EventGetResponseDTO(
         UUID organizerId,
         Set<UserEventResponseDTO> attendees,
         Set<CategoryResponseDTO> categories,
-        Set<ImageResponseDTO> images
+        Set<ImageEventResponseDTO> imageIds
+
 ) {
 }
