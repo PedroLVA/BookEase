@@ -31,6 +31,10 @@ public class Image {
     @JoinColumn(name = "organizer_id")
     private User organizer;
 
+    public Image(byte[] imageData64) {
+        this.imageData = imageData64;
+    }
+
     public enum ImageType {
         EVENT,
         ORGANIZER
