@@ -2,6 +2,7 @@ package com.bookease.bookease.services;
 
 import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.domain.Event;
+import com.bookease.bookease.domain.Image;
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.dtos.category.CategoryResponseDTO;
 import com.bookease.bookease.dtos.event.EventGetResponseDTO;
@@ -18,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -35,31 +33,37 @@ public class EventService {
     }
 
     public ResponseEntity<List<EventGetResponseDTO>> getAllEvents(){
-        List<Event> events = eventRepository.findAll();
-        List<EventGetResponseDTO> eventDtos = events.stream().map(event -> new EventGetResponseDTO(
-                event.getId(),
-                event.getName(),
-                event.getDescription(),
-                event.getDate(),
-                event.isActive(),
-                event.getPublishingDate(),
-                event.getAddress(),
-                event.getCity(),
-                event.getState(),
-                event.getHomeNumber(),
-                event.getOrganizer().getId(),
-                event.getAttendees().stream()
-                        .map(attendee -> new UserEventResponseDTO(attendee.getId(), attendee.getName(), attendee.getEmail()))
-                        .collect(Collectors.toSet()),
-                event.getCategories().stream()
-                        .map(category -> new CategoryResponseDTO(category.getId(), category.getName(), category.getDescription()))
-                        .collect(Collectors.toSet()),
-                event.getImages().stream()
-                        .map(image -> new ImageEventResponseDTO(image.getId()))
-                        .collect(Collectors.toSet())
-        )).collect(Collectors.toList());
+        try {
+            List<Event> events = eventRepository.findAll();
+            List<EventGetResponseDTO> eventDtos = events.stream().map(event -> new EventGetResponseDTO(
+                    event.getId(),
+                    event.getName(),
+                    event.getDescription(),
+                    event.getDate(),
+                    event.isActive(),
+                    event.getPublishingDate(),
+                    event.getAddress(),
+                    event.getCity(),
+                    event.getState(),
+                    event.getHomeNumber(),
+                    event.getOrganizer().getId(),
+                    event.getAttendees().stream()
+                            .map(attendee -> new UserEventResponseDTO(attendee.getId(), attendee.getName(), attendee.getEmail()))
+                            .collect(Collectors.toSet()),
+                    event.getCategories().stream()
+                            .map(category -> new CategoryResponseDTO(category.getId(), category.getName(), category.getDescription()))
+                            .collect(Collectors.toSet()),
+                    event.getImages().stream()
+                            .map(Image::getId) // Map to UUID instead of a DTO
+                            .collect(Collectors.toSet())
+            )).collect(Collectors.toList());
 
-        return ResponseEntity.ok(eventDtos);
+            return ResponseEntity.ok(eventDtos);
+        } catch (ConcurrentModificationException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
     }
 
 

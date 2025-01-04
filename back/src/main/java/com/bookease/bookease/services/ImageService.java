@@ -44,6 +44,7 @@ public class ImageService {
                         .orElseThrow(() -> new RuntimeException("Event not found with ID: " + entityId));
                 image.setEvent(event);
                 image.setType(Image.ImageType.EVENT);
+                event.getImages().add(image); // Update the event's images set
             } else if ("ORGANIZER".equalsIgnoreCase(entityType)) {
                 User organizer = userRepository.findById(entityId)
                         .orElseThrow(() -> new RuntimeException("Organizer not found with ID: " + entityId));
@@ -62,6 +63,7 @@ public class ImageService {
             throw new RuntimeException("Error reading file: " + e.getMessage(), e);
         }
     }
+
 
 
     public ImageResponseDTO getById(@NotNull UUID id) {

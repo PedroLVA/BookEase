@@ -24,7 +24,7 @@ public record EventGetResponseDTO(
         UUID organizerId,
         Set<UserEventResponseDTO> attendees,
         Set<CategoryResponseDTO> categories,
-        Set<ImageEventResponseDTO> imageIds
+        Set<UUID> imageIds
 
 ) {
 }
