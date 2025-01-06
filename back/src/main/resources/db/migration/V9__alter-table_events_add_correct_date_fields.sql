@@ -1,0 +1,3 @@
+ALTER TABLE events ADD COLUMN starting_date TIMESTAMP;
+ALTER TABLE events ADD COLUMN ending_date TIMESTAMP;
+ALTER TABLE events DROP COLUMN date;

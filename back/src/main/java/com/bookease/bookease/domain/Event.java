@@ -22,7 +22,8 @@ public class Event {
 
     private String description;
 
-    private LocalDateTime date;
+    private LocalDateTime startingDate; // Start date and time
+    private LocalDateTime endingDate;
 
     private boolean isActive;
 

@@ -39,7 +39,8 @@ public class EventService {
                     event.getId(),
                     event.getName(),
                     event.getDescription(),
-                    event.getDate(),
+                    event.getStartingDate(),
+                    event.getEndingDate(),
                     event.isActive(),
                     event.getPublishingDate(),
                     event.getAddress(),
@@ -71,7 +72,8 @@ public class EventService {
         Event event = new Event();
         event.setName(request.name());
         event.setDescription(request.description());
-        event.setDate(request.date());
+        event.setStartingDate(request.startingDate());
+        event.setEndingDate(request.endingDate());
         event.setAddress(request.address());
         event.setCity(request.city());
         event.setActive(true);

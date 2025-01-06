@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 public record EventRequestDTO(
         String name,
         String description,
-        LocalDateTime date,
+        LocalDateTime startingDate,
+        LocalDateTime endingDate,
         String address,
         String city,
         String state,
