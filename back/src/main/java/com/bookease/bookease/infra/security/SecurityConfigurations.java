@@ -27,13 +27,16 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/event").hasAnyRole("ADMIN", "ORGANIZER")
-                        .requestMatchers(HttpMethod.GET, "/user/get-all").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/event").permitAll()
-                        .anyRequest().authenticated()
+                       // .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                       // .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                       // .requestMatchers(HttpMethod.POST, "/event").hasAnyRole("ADMIN", "ORGANIZER")
+                       // .requestMatchers(HttpMethod.GET, "/user/get-all").hasRole("ADMIN")
+                       // .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.GET, "/event").permitAll()
+                        //.anyRequest().authenticated()
+
+
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

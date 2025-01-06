@@ -11,8 +11,6 @@ import java.util.Set;
 @DiscriminatorValue("ORGANIZER")
 public class Organizer extends User {
 
-
-
     public Organizer(RegisterDTO data, String encryptedPassword) {
         super(data, encryptedPassword);
     }
