@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class OrganizerService {
     private final OrganizerRepository organizerRepository;
 
-    public Organizer getUserByEmail(String email){
+    public Organizer getOrganizerByEmail(String email){
         return (Organizer) organizerRepository.findByEmail(email);
 
     }

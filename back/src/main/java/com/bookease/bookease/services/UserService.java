@@ -1,8 +1,11 @@
 package com.bookease.bookease.services;
+import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +17,18 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public User getCurrentuser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUserEmail = authentication.getName();
 
+        User user  = getUserByEmail(loggedInUserEmail);
+        return user;
+
+    }
+    public User getUserByEmail(String email){
+        return (User) userRepository.findByEmail(email);
+
+    }
 
     public List<UserGetResponseDTO> getAllUsers(){
         List<User> users = userRepository.findAll();

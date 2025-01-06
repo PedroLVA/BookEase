@@ -1,4 +1,5 @@
 package com.bookease.bookease.domain;
+import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -38,6 +39,16 @@ public class Ticket {
         PAID,
         PENDING,
         FAILED
+    }
+
+    public Ticket(TicketRequestDTO data){
+        this.bookingDate = data.bookingDate();
+        this.paymentStatus = PaymentStatus.PENDING;
+        this.ticketPrice = data.ticketPrice();
+        this.seatNumber = data.seatNumber();
+        this.ticketType = data.ticketType();
+        this.validUntil = event.getEndingDate();
+
     }
 
     @ManyToOne
