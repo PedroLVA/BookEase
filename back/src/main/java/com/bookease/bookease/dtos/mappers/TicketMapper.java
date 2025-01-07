@@ -4,17 +4,27 @@ import com.bookease.bookease.domain.Ticket;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
 import com.bookease.bookease.dtos.ticket.TicketResponseDTO;
+import com.bookease.bookease.repositories.EventRepository;
+import com.bookease.bookease.services.UserService;
+import lombok.AllArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@AllArgsConstructor
 public class TicketMapper {
+    private final EventRepository eventRepository;
+    private final UserService userService;
 
 
-    public static Ticket toEntity(@NotNull TicketRequestDTO request, @NotNull Event event, @NotNull User user){
+    public Ticket toEntity(@NotNull TicketRequestDTO request){
         Ticket ticket = new Ticket();
+        User user = userService.getCurrentuser();
+
+        Event event = eventRepository.findById(request.eventId())
+                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + request.eventId()));
         ticket.setUser(user);
         ticket.setEvent(event);
         ticket.setBookingDate(LocalDateTime.now());
@@ -26,7 +36,7 @@ public class TicketMapper {
         return ticket;
     }
 
-    public static TicketResponseDTO toTicketResponseDTO(Ticket ticket) {
+    public TicketResponseDTO toTicketResponseDTO(Ticket ticket) {
         return new TicketResponseDTO(
                 ticket.getId(),
                 ticket.getBookingDate(),

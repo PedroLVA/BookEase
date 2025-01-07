@@ -17,18 +17,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TicketService {
     private final TicketRepository ticketRepository;
-    private final UserService userService;
-    private final EventRepository eventRepository;
+    private final TicketMapper ticketMapper;
 
     public TicketResponseDTO createTicket(TicketRequestDTO ticketData ){
-        User user = userService.getCurrentuser();
-
-        Event event = eventRepository.findById(ticketData.eventId())
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + ticketData.eventId()));
 
 
-        Ticket savedTicket = ticketRepository.save(TicketMapper.toEntity(ticketData, event, user));
-        return TicketMapper.toTicketResponseDTO(savedTicket);
+
+        Ticket savedTicket = ticketRepository.save(ticketMapper.toEntity(ticketData));
+        return ticketMapper.toTicketResponseDTO(savedTicket);
 
     }
 }
