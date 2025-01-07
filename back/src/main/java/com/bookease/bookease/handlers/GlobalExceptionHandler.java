@@ -1,12 +1,18 @@
 package com.bookease.bookease.handlers;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.security.SignatureException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    public ProblemDetail handleSecutiryException;
 
     // Handle Entity Not Found
     @ExceptionHandler(EntityNotFoundException.class)
@@ -20,11 +26,27 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
-    // Handle Generic Exceptions
+    // Handle Security
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneralException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + ex.getMessage());
+    public ProblemDetail handleSecurityExceptions(Exception ex) {
+        ProblemDetail errorDetail = null;
+        if(ex instanceof BadCredentialsException){
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.valueOf(401), ex.getMessage());
+            errorDetail.setProperty("acess_denied_reason", "Authentication Failure");
+        }
+
+        if(ex instanceof AccessDeniedException){
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.valueOf(403), ex.getMessage());
+            errorDetail.setProperty("acess_denied_reason", "not_authorized");
+        }
+
+        if(ex instanceof SignatureException){
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.valueOf(403), ex.getMessage());
+            errorDetail.setProperty("acess_denied_reason", "JWT Signature not valid");
+        }
+
+
+
+        return errorDetail;
     }
-
-
 }
