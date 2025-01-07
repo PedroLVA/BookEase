@@ -1,20 +1,19 @@
 package com.bookease.bookease.domain;
 import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table(name = "tickets")
+
 @Entity
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-
+@Table(name = "tickets")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -58,7 +57,6 @@ public class Ticket {
     @ManyToOne()
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
-
 
 
 }

@@ -9,8 +9,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "images")
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "event")

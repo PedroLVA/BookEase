@@ -2,6 +2,7 @@ package com.bookease.bookease.controllers;
 
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
+import com.bookease.bookease.dtos.ticket.TicketResponseDTO;
 import com.bookease.bookease.services.TicketService;
 import com.bookease.bookease.services.UserService;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class TicketController {
 
 
     @PostMapping()
-    public ResponseEntity createTicket(@RequestBody @Validated TicketRequestDTO ticketRequestDTO){
+    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody @Validated TicketRequestDTO ticketRequestDTO){
 
         return ResponseEntity.ok(ticketService.createTicket(ticketRequestDTO));
     }
