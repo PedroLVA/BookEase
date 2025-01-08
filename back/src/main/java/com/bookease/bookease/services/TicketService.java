@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -21,10 +23,12 @@ public class TicketService {
 
     public TicketResponseDTO createTicket(TicketRequestDTO ticketData ){
 
-
-
         Ticket savedTicket = ticketRepository.save(ticketMapper.toEntity(ticketData));
         return ticketMapper.toTicketResponseDTO(savedTicket);
 
+    }
+
+    public Set<TicketResponseDTO> getAllTickets(){
+        return ticketRepository.findAll().stream().map(ticketMapper::toTicketResponseDTO).collect(Collectors.toSet());
     }
 }
