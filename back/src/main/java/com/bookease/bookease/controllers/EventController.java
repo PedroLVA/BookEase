@@ -8,6 +8,7 @@ import com.bookease.bookease.dtos.event.EventRequestDTO;
 import com.bookease.bookease.services.CategoryService;
 import com.bookease.bookease.services.EventService;
 import com.bookease.bookease.services.OrganizerService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,14 +38,15 @@ public class EventController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUserEmail = authentication.getName();
 
+        Optional<Organizer> optionalOrganizer = organizerService.getOrganizerByEmail(loggedInUserEmail);
+        if (optionalOrganizer.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Organizer not found.");
+        }
 
-        Organizer organizer =  organizerService.getOrganizerByEmail(loggedInUserEmail);
-
-
+        Organizer organizer = optionalOrganizer.get();
         if (organizer.getRole() != Role.ORGANIZER) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Only organizers can create events.");
         }
-
 
         Event event = eventService.createEvent(eventRequestDTO, organizer);
         return ResponseEntity.ok().build();

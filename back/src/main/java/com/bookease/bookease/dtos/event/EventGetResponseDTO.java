@@ -22,6 +22,7 @@ public record EventGetResponseDTO(
         String city,
         String state,
         String homeNumber,
+        int capacity,
         UUID organizerId,
         Set<UserEventResponseDTO> attendees,
         Set<CategoryResponseDTO> categories,

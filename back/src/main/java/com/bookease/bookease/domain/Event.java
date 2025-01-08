@@ -29,6 +29,11 @@ public class Event {
 
     private LocalDateTime publishingDate;
 
+    // Maximum capacity of the event
+    private int capacity;
+
+    private int bookedSeats;
+
     //Endereço
 
     private String address;

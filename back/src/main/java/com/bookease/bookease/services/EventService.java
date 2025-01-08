@@ -47,6 +47,7 @@ public class EventService {
                     event.getCity(),
                     event.getState(),
                     event.getHomeNumber(),
+                    event.getCapacity(),
                     event.getOrganizer().getId(),
                     event.getAttendees().stream()
                             .map(attendee -> new UserEventResponseDTO(attendee.getId(), attendee.getName(), attendee.getEmail()))
@@ -75,6 +76,7 @@ public class EventService {
         event.setStartingDate(request.startingDate());
         event.setEndingDate(request.endingDate());
         event.setAddress(request.address());
+        event.setCapacity(request.capacity());
         event.setCity(request.city());
         event.setActive(true);
         event.setState(request.state());

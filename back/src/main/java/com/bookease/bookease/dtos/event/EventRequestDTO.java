@@ -10,6 +10,7 @@ public record EventRequestDTO(
         String description,
         LocalDateTime startingDate,
         LocalDateTime endingDate,
+        int capacity,
         String address,
         String city,
         String state,

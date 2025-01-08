@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -15,8 +16,8 @@ import java.util.stream.Collectors;
 public class OrganizerService {
     private final OrganizerRepository organizerRepository;
 
-    public Organizer getOrganizerByEmail(String email){
-        return (Organizer) organizerRepository.findByEmail(email);
+    public Optional<Organizer> getOrganizerByEmail(String email){
+        return organizerRepository.findByEmail(email);
 
     }
 
