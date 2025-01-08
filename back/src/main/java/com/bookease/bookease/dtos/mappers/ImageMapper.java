@@ -11,7 +11,6 @@ public class ImageMapper {
     public static ImageResponseDTO toImageResponseDTO(Image image) {
         return new ImageResponseDTO(
                 image.getId(),
-                Base64.getEncoder().encodeToString(image.getImageData()),
                 image.getInsertedOn(),
                 image.getType()
         );

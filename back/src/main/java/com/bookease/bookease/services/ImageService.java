@@ -12,12 +12,14 @@ import com.bookease.bookease.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -65,10 +67,18 @@ public class ImageService {
     }
 
 
+    public ResponseEntity<Set<ImageResponseDTO>> getAllImages(){
+        return ResponseEntity.ok(imageRepository.findAll().stream().map(ImageMapper::toImageResponseDTO).collect(Collectors.toSet()));
+    }
 
     public ImageResponseDTO getById(@NotNull UUID id) {
         var image = imageRepository.findById(id).orElseThrow( () -> new RuntimeException("Image not found"));
         return ImageMapper.toImageResponseDTO(image);
+    }
+
+    public ResponseEntity delete(@NotNull UUID id){
+        imageRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     public List<Image> processImages(List<ImageRequestDTO> imageRequests, Event event) {

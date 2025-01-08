@@ -33,19 +33,19 @@ public class EventController {
 
     @PostMapping()
     public ResponseEntity<?> createEvent(@RequestBody @Validated EventRequestDTO eventRequestDTO) {
-        // Get the currently logged-in user's email
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUserEmail = authentication.getName();
 
-        // Retrieve the user from the database
+
         Organizer organizer =  organizerService.getOrganizerByEmail(loggedInUserEmail);
 
-        // Ensure the user has the role of ORGANIZER
+
         if (organizer.getRole() != Role.ORGANIZER) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Only organizers can create events.");
         }
 
-        // Create the event
+
         Event event = eventService.createEvent(eventRequestDTO, organizer);
         return ResponseEntity.ok().build();
     }
