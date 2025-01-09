@@ -1,5 +1,4 @@
 package com.bookease.bookease.controllers;
-
 import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.dtos.category.CategoryRequestDTO;
 import com.bookease.bookease.repositories.CategoryRepository;

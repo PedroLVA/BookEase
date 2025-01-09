@@ -2,7 +2,6 @@ package com.bookease.bookease.domain;
 import com.bookease.bookease.dtos.user.RegisterDTO;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Set;
 
 @NoArgsConstructor

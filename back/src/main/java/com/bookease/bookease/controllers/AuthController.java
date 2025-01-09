@@ -1,5 +1,4 @@
 package com.bookease.bookease.controllers;
-
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.Role;
 import com.bookease.bookease.domain.User;
@@ -9,7 +8,6 @@ import com.bookease.bookease.dtos.user.RegisterDTO;
 import com.bookease.bookease.infra.security.TokenService;
 import com.bookease.bookease.repositories.OrganizerRepository;
 import com.bookease.bookease.repositories.UserRepository;
-import com.bookease.bookease.services.OrganizerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

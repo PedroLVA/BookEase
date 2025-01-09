@@ -8,7 +8,6 @@ import com.bookease.bookease.dtos.event.EventRequestDTO;
 import com.bookease.bookease.services.CategoryService;
 import com.bookease.bookease.services.EventService;
 import com.bookease.bookease.services.OrganizerService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

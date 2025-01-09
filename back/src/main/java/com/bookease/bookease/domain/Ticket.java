@@ -2,7 +2,6 @@ package com.bookease.bookease.domain;
 import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 

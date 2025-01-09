@@ -1,5 +1,4 @@
 package com.bookease.bookease.services;
-
 import com.bookease.bookease.domain.Event;
 import com.bookease.bookease.domain.Image;
 import com.bookease.bookease.domain.User;
@@ -11,11 +10,9 @@ import com.bookease.bookease.repositories.ImageRepository;
 import com.bookease.bookease.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;

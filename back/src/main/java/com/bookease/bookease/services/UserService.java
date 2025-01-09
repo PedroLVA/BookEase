@@ -1,5 +1,4 @@
 package com.bookease.bookease.services;
-import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.repositories.UserRepository;

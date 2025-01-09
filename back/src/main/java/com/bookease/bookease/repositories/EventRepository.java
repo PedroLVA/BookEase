@@ -1,5 +1,4 @@
 package com.bookease.bookease.repositories;
-
 import com.bookease.bookease.domain.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 

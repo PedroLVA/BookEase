@@ -1,10 +1,7 @@
 package com.bookease.bookease.controllers;
-
 import com.bookease.bookease.dtos.image.ImageResponseDTO;
 import com.bookease.bookease.services.ImageService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

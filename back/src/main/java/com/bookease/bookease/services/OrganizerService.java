@@ -1,12 +1,10 @@
 package com.bookease.bookease.services;
-
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.repositories.OrganizerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

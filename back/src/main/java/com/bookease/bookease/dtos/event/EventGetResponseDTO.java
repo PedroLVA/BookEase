@@ -1,11 +1,6 @@
 package com.bookease.bookease.dtos.event;
-
 import com.bookease.bookease.dtos.category.CategoryResponseDTO;
-import com.bookease.bookease.dtos.image.ImageEventResponseDTO;
-import com.bookease.bookease.dtos.image.ImageResponseDTO;
 import com.bookease.bookease.dtos.user.UserEventResponseDTO;
-import com.bookease.bookease.dtos.user.UserGetResponseDTO;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;

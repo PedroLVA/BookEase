@@ -1,5 +1,4 @@
 package com.bookease.bookease.dtos.ticket;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 

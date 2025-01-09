@@ -1,5 +1,4 @@
 package com.bookease.bookease.dtos.image;
-
 import org.antlr.v4.runtime.misc.NotNull;
 
 public record ImageRequestDTO(

@@ -1,9 +1,7 @@
 package com.bookease.bookease.domain;
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 

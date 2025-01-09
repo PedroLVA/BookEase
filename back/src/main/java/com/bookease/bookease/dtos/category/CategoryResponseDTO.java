@@ -1,5 +1,4 @@
 package com.bookease.bookease.dtos.category;
-
 import java.util.UUID;
 
 public record CategoryResponseDTO(

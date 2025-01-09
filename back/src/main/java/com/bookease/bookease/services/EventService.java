@@ -1,14 +1,10 @@
 package com.bookease.bookease.services;
-
-import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.domain.Event;
 import com.bookease.bookease.domain.Image;
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.dtos.category.CategoryResponseDTO;
 import com.bookease.bookease.dtos.event.EventGetResponseDTO;
 import com.bookease.bookease.dtos.event.EventRequestDTO;
-import com.bookease.bookease.dtos.image.ImageEventResponseDTO;
-import com.bookease.bookease.dtos.image.ImageResponseDTO;
 import com.bookease.bookease.dtos.user.UserEventResponseDTO;
 import com.bookease.bookease.repositories.EventRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,8 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
