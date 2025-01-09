@@ -1,8 +1,11 @@
 package com.bookease.bookease.services;
+import com.bookease.bookease.domain.Event;
 import com.bookease.bookease.domain.Ticket;
 import com.bookease.bookease.dtos.mappers.TicketMapper;
 import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
 import com.bookease.bookease.dtos.ticket.TicketResponseDTO;
+import com.bookease.bookease.exceptions.EventFullException;
+import com.bookease.bookease.repositories.EventRepository;
 import com.bookease.bookease.repositories.TicketRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,9 +16,19 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TicketService {
     private final TicketRepository ticketRepository;
+    private final EventRepository eventRepository;
     private final TicketMapper ticketMapper;
 
     public TicketResponseDTO createTicket(TicketRequestDTO ticketData ){
+
+        Event event = eventRepository.findById(ticketData.eventId())
+                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + ticketData.eventId()));
+
+        long bookedTickets = ticketRepository.countByEventId(ticketData.eventId());
+
+        if(bookedTickets >= event.getCapacity()){
+            throw new EventFullException("Event is already full.");
+        }
 
         Ticket savedTicket = ticketRepository.save(ticketMapper.toEntity(ticketData));
         return ticketMapper.toTicketResponseDTO(savedTicket);

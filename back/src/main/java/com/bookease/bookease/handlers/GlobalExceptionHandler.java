@@ -1,4 +1,5 @@
 package com.bookease.bookease.handlers;
+import com.bookease.bookease.exceptions.EventFullException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.security.SignatureException;
+import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -47,6 +49,16 @@ public class GlobalExceptionHandler {
 
 
 
+
         return errorDetail;
+    }
+
+    @ExceptionHandler(EventFullException.class)
+    public ProblemDetail handleEventFullException(EventFullException ex) {
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.valueOf(400), ex.getMessage());
+        errorDetail.setProperty("acess_denied_reason", "Event is full");
+        errorDetail.setProperty("timestamp", LocalDateTime.now()); // Optional metadata
+        return errorDetail;
+
     }
 }
