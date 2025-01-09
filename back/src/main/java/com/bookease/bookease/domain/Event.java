@@ -22,7 +22,8 @@ public class Event {
 
     private String description;
 
-    private LocalDateTime startingDate; // Start date and time
+    private LocalDateTime startingDate;
+
     private LocalDateTime endingDate;
 
     private boolean isActive;
@@ -32,7 +33,6 @@ public class Event {
     // Maximum capacity of the event
     private int capacity;
 
-    private int bookedSeats;
 
     //Endereço
 
