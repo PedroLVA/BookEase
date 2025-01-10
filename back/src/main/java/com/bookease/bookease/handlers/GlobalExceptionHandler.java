@@ -16,19 +16,17 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
     public ProblemDetail handleSecutiryException;
 
-    // Handle Entity Not Found
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
-    // Handle Illegal Argument Exception
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
-    // Handle Security
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleSecurityExceptions(Exception ex) {
         ProblemDetail errorDetail = null;
