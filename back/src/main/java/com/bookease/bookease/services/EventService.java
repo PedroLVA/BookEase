@@ -8,9 +8,11 @@ import com.bookease.bookease.dtos.event.EventRequestDTO;
 import com.bookease.bookease.dtos.mappers.EventMapper;
 import com.bookease.bookease.dtos.user.UserEventResponseDTO;
 import com.bookease.bookease.repositories.EventRepository;
+import com.bookease.bookease.repositories.specification.EventSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -28,10 +30,18 @@ public class EventService {
         return eventRepository.findById(id);
     }
 
-    public ResponseEntity<List<EventGetResponseDTO>> getAllEvents(){
+    public ResponseEntity<List<EventGetResponseDTO>> getAllEvents(Integer minCapacity, String categories){
         try {
-            List<Event> events = eventRepository.findAll();
+            Specification<Event> spec = Specification.where(null);
 
+            if (categories != null) {
+                spec = spec.and(EventSpecifications.hasCategories(categories));
+            }
+            if (minCapacity != null) {
+                spec = spec.and(EventSpecifications.hasCapacityGreaterThanOrEqualTo(minCapacity));
+            }
+
+            List<Event> events = eventRepository.findAll(spec);
 
             return ResponseEntity.ok(eventMapper.toEventResponseDTO(events));
         } catch (ConcurrentModificationException e) {
