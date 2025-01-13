@@ -45,9 +45,6 @@ public class GlobalExceptionHandler {
             errorDetail.setProperty("acess_denied_reason", "JWT Signature not valid");
         }
 
-
-
-
         return errorDetail;
     }
 
