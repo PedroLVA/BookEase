@@ -84,12 +84,12 @@ public class EventController {
 
     }
 
-
     @GetMapping()
     public ResponseEntity<List<EventGetResponseDTO>> getAllEvents( @RequestParam(required = false)  String categories,
                                                                    @RequestParam(required = false) Integer minCapacity){
         return eventService.getAllEvents(minCapacity, categories);
     }
+
 
 
 }

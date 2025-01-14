@@ -26,6 +26,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
 
+
     public Optional<Event> getEventById(UUID id){
         return eventRepository.findById(id);
     }

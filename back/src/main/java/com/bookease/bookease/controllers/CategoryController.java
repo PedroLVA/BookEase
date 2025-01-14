@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/category")
@@ -25,6 +26,12 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity registerNewCategory(@RequestBody @Validated CategoryRequestDTO categoryData){
         return categoryService.createCategory(categoryData);
+    }
+
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity deleteCategory(@PathVariable UUID categoryId){
+        categoryService.deleteCategory(categoryId);
+        return ResponseEntity.ok("Category deleted successfully");
     }
 
 }
