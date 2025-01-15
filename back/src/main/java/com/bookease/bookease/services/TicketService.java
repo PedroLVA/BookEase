@@ -7,9 +7,12 @@ import com.bookease.bookease.dtos.ticket.TicketResponseDTO;
 import com.bookease.bookease.exceptions.EventFullException;
 import com.bookease.bookease.repositories.EventRepository;
 import com.bookease.bookease.repositories.TicketRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +38,15 @@ public class TicketService {
 
     }
 
+
     public Set<TicketResponseDTO> getAllTickets(){
         return ticketRepository.findAll().stream().map(ticketMapper::toTicketResponseDTO).collect(Collectors.toSet());
+    }
+
+    public void deleteTicket(UUID ticketId){
+        if(!ticketRepository.existsById(ticketId)){
+            throw new EntityNotFoundException("Ticket with id: " + ticketId + " coundn't be found");
+        }
+        ticketRepository.deleteById(ticketId);
     }
 }

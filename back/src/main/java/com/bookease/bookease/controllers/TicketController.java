@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/ticket")
@@ -20,6 +21,12 @@ public class TicketController {
     public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody @Validated TicketRequestDTO ticketRequestDTO){
 
         return ResponseEntity.ok(ticketService.createTicket(ticketRequestDTO));
+    }
+
+    @DeleteMapping("/{ticketId}")
+    public ResponseEntity deleteTicket(@PathVariable UUID ticketId){
+        ticketService.deleteTicket(ticketId);
+        return ResponseEntity.ok("Ticket deleted successfully");
     }
 
     @GetMapping()
