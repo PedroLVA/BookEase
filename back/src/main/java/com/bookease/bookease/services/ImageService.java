@@ -14,10 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.lang.String;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,7 +28,7 @@ public class ImageService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
 
-    public ImageResponseDTO post(MultipartFile file, String entityType, UUID entityId) {
+    public ImageResponseDTO post(MultipartFile file, String entityType, String entityId) {
         try {
             var image = new Image();
 
@@ -68,12 +68,12 @@ public class ImageService {
         return ResponseEntity.ok(imageRepository.findAll().stream().map(ImageMapper::toImageResponseDTO).collect(Collectors.toSet()));
     }
 
-    public ImageResponseDTO getById(@NotNull UUID id) {
+    public ImageResponseDTO getById(@NotNull String id) {
         var image = imageRepository.findById(id).orElseThrow( () -> new RuntimeException("Image not found"));
         return ImageMapper.toImageResponseDTO(image);
     }
 
-    public ResponseEntity delete(@NotNull UUID id){
+    public ResponseEntity delete(@NotNull String id){
         imageRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }

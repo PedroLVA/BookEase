@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.Set;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +43,7 @@ public class TicketService {
         return ticketRepository.findAll().stream().map(ticketMapper::toTicketResponseDTO).collect(Collectors.toSet());
     }
 
-    public void deleteTicket(UUID ticketId){
+    public void deleteTicket(String ticketId){
         if(!ticketRepository.existsById(ticketId)){
             throw new EntityNotFoundException("Ticket with id: " + ticketId + " coundn't be found");
         }

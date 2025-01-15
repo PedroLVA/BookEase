@@ -46,7 +46,7 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public User getUserById(UUID userId) {
+    public User getUserById(String userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
     }

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/image")
@@ -22,7 +22,7 @@ public class ImageController {
     public ResponseEntity<ImageResponseDTO> post(
             @RequestParam("file") MultipartFile file,
             @RequestParam("entityType") String entityType,
-            @RequestParam("entityId") UUID entityId) {
+            @RequestParam("entityId") String entityId) {
         try {
             return ResponseEntity.ok(imageService.post(file, entityType, entityId));
         } catch (Exception e) {
@@ -31,7 +31,7 @@ public class ImageController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ImageResponseDTO> getById(@PathVariable @NotNull UUID id) {
+    public ResponseEntity<ImageResponseDTO> getById(@PathVariable @NotNull String id) {
         try {
             return ResponseEntity.ok(imageService.getById(id));
         } catch (NoSuchElementException e) {
@@ -49,7 +49,7 @@ public class ImageController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable @NotNull UUID id){
+    public ResponseEntity delete(@PathVariable @NotNull String id){
         try{
             imageService.delete(id);
             return ResponseEntity.ok().build();

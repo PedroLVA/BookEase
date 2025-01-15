@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
 
     private LocalDateTime bookingDate;
 

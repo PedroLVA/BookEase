@@ -27,7 +27,7 @@ public class EventService {
     private final EventMapper eventMapper;
 
 
-    public Optional<Event> getEventById(UUID id){
+    public Optional<Event> getEventById(String id){
         return eventRepository.findById(id);
     }
 
@@ -65,7 +65,7 @@ public class EventService {
 
 
     @Transactional
-    public void deleteEvent(UUID eventId) {
+    public void deleteEvent(String eventId) {
         if (!eventRepository.existsById(eventId)) {
             throw new EntityNotFoundException("Event with ID " + eventId + " does not exist");
         }

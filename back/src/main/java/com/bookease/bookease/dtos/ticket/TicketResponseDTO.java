@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record TicketResponseDTO(
-        UUID id,
+        String id,
         LocalDateTime bookingDate,
         LocalDateTime validUntil,
         String paymentStatus,
@@ -14,7 +14,7 @@ public record TicketResponseDTO(
         UserSummary user
 ) {
     public record EventSummary(
-            UUID id,
+            String id,
             String name,
             String description,
             LocalDateTime startingDate,
@@ -26,7 +26,7 @@ public record TicketResponseDTO(
     ) {}
 
     public record UserSummary(
-            UUID id,
+            String id,
             String name,
             String email
     ) {}

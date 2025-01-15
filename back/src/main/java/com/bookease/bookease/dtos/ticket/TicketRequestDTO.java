@@ -7,6 +7,6 @@ public record TicketRequestDTO(LocalDateTime bookingDate,
                                String seatNumber,
                                String ticketType,
                                LocalDateTime validUntil,
-                               UUID eventId
+                               String eventId
                                ){ // Can be "PAID", "PENDING", or "FAILED") {
 }

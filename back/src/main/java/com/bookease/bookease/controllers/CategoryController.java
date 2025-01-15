@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/category")
@@ -29,7 +29,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity deleteCategory(@PathVariable UUID categoryId){
+    public ResponseEntity deleteCategory(@PathVariable String categoryId){
         categoryService.deleteCategory(categoryId);
         return ResponseEntity.ok("Category deleted successfully");
     }

@@ -7,17 +7,18 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
+
+import java.lang.String;
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 @AllArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public List<Category> getAllCategoriesById(List<UUID> ids){
+    public List<Category> getAllCategoriesById(List<String> ids){
         return categoryRepository.findAllById(ids);
     }
 
@@ -29,7 +30,7 @@ public class CategoryService {
     }
 
 
-    public void deleteCategory(UUID categoryId){
+    public void deleteCategory(String categoryId){
         if (!categoryRepository.existsById(categoryId)) {
             throw new EntityNotFoundException("Category with ID " + categoryId + " does not exist");
         }

@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public record EventGetResponseDTO(
-        UUID id,
+        String id,
         String name,
         String description,
         LocalDateTime startingDate,
@@ -18,11 +18,11 @@ public record EventGetResponseDTO(
         String state,
         String homeNumber,
         int capacity,
-        UUID organizerId,
-        Set<UUID>ticketIds,
+        String organizerId,
+        Set<String>ticketIds,
         Set<UserEventResponseDTO> attendees,
         Set<CategoryResponseDTO> categories,
-        Set<UUID> imageIds
+        Set<String> imageIds
 
 ) {
 }

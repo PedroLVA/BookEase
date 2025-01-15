@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/event")
@@ -52,15 +52,15 @@ public class EventController {
     }
 
     @DeleteMapping("/{eventId}")
-    public ResponseEntity<?> deleteEvent(@PathVariable UUID eventId) {
+    public ResponseEntity<?> deleteEvent(@PathVariable String eventId) {
         eventService.deleteEvent(eventId);
         return ResponseEntity.ok("Event deleted successfully");
     }
 
     @Transactional
     @PostMapping("/{eventId}/categories")
-    public ResponseEntity<?> addCategoriesToEvent(@PathVariable UUID eventId,
-                                                  @RequestBody List<UUID> categoryIds){
+    public ResponseEntity<?> addCategoriesToEvent(@PathVariable String eventId,
+                                                  @RequestBody List<String> categoryIds){
 
         Optional<Event> optionalEvent = eventService.getEventById(eventId);
         if (optionalEvent.isEmpty()) {

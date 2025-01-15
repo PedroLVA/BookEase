@@ -8,14 +8,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/ticket")
 @AllArgsConstructor
 public class TicketController {
-    private final TicketService ticketService;
 
+    private final TicketService ticketService;
 
     @PostMapping()
     public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody @Validated TicketRequestDTO ticketRequestDTO){
@@ -24,7 +24,7 @@ public class TicketController {
     }
 
     @DeleteMapping("/{ticketId}")
-    public ResponseEntity deleteTicket(@PathVariable UUID ticketId){
+    public ResponseEntity deleteTicket(@PathVariable String ticketId){
         ticketService.deleteTicket(ticketId);
         return ResponseEntity.ok("Ticket deleted successfully");
     }

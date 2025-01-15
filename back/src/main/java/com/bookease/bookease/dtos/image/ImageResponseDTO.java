@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record ImageResponseDTO(
-        UUID id,
+        String id,
         LocalDateTime insertedOn,
         Image.ImageType type
 ) {
