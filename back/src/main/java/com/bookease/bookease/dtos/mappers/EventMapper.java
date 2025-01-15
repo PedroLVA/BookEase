@@ -1,8 +1,5 @@
 package com.bookease.bookease.dtos.mappers;
-import com.bookease.bookease.domain.Event;
-import com.bookease.bookease.domain.Image;
-import com.bookease.bookease.domain.Organizer;
-import com.bookease.bookease.domain.User;
+import com.bookease.bookease.domain.*;
 import com.bookease.bookease.dtos.category.CategoryResponseDTO;
 import com.bookease.bookease.dtos.event.EventGetResponseDTO;
 import com.bookease.bookease.dtos.event.EventRequestDTO;
@@ -55,6 +52,7 @@ public class EventMapper {
                 event.getHomeNumber(),
                 event.getCapacity(),
                 event.getOrganizer().getId(),
+                event.getTickets().stream().map(Ticket::getId).collect(Collectors.toSet()),
                 event.getAttendees().stream()
                         .map(attendee -> new UserEventResponseDTO(attendee.getId(), attendee.getName(), attendee.getEmail()))
                         .collect(Collectors.toSet()),

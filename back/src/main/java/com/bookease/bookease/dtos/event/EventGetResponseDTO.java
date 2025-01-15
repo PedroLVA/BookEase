@@ -19,6 +19,7 @@ public record EventGetResponseDTO(
         String homeNumber,
         int capacity,
         UUID organizerId,
+        Set<UUID>ticketIds,
         Set<UserEventResponseDTO> attendees,
         Set<CategoryResponseDTO> categories,
         Set<UUID> imageIds
