@@ -15,9 +15,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @AllArgsConstructor
 @Service
@@ -52,9 +51,7 @@ public class EventService {
 
     }
 
-
     public Event createEvent(EventRequestDTO request, Organizer organizer){
-
 
         return eventRepository.save(eventMapper.toEntity(request, organizer));
     }
