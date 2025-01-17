@@ -7,6 +7,7 @@ import com.bookease.bookease.dtos.ticket.TicketResponseDTO;
 import com.bookease.bookease.exceptions.EventFullException;
 import com.bookease.bookease.repositories.EventRepository;
 import com.bookease.bookease.repositories.TicketRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -70,12 +71,9 @@ class TicketServiceTest {
 
         TicketResponseDTO result = ticketService.createTicket(ticketRequestDTO);
 
-        //asertions
-
         assertThat(result).isNotNull()
                 .isEqualTo(ticketResponseDTO);
 
-        //verify
 
         verify(eventRepository).findById(eventId);
         verify(ticketRepository).countByEventId(eventId);
@@ -118,7 +116,7 @@ class TicketServiceTest {
         verify(eventRepository).findById(eventId);
         verify(ticketRepository).countByEventId(eventId);
 
-        // These should never be called because the exception is thrown first
+
         verify(ticketMapper, never()).toEntity(any());
         verify(ticketRepository, never()).save(any());
         verify(ticketMapper, never()).toTicketResponseDTO(any());
@@ -130,11 +128,31 @@ class TicketServiceTest {
     @Test
     @DisplayName("Should be able to delete ticket successfully")
     void deleteTicketCase1() {
+
+        String ticketId = "test-ticket-id";
+        when(ticketRepository.existsById(ticketId)).thenReturn(true);
+
+        ticketService.deleteTicket(ticketId);
+
+        verify(ticketRepository).existsById(ticketId);
+        verify(ticketRepository).deleteById(ticketId);
     }
 
     @Test
     @DisplayName("Should throw EntityNotFoundException when trying to delete ticket")
     void deleteTicketCase2() {
+
+        String ticketId = "test-ticket-id";
+        when(ticketRepository.existsById(ticketId)).thenReturn(false);
+
+        assertThatThrownBy(() -> ticketService.deleteTicket(ticketId))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Ticket with id: " + ticketId + " coundn't be found");
+
+        verify(ticketRepository).existsById(ticketId);
+
+        verify(ticketRepository, never()).deleteById(any());
+
     }
 
     private Ticket createTestTicket(){
