@@ -4,6 +4,7 @@ import com.bookease.bookease.domain.*;
 import com.bookease.bookease.dtos.mappers.TicketMapper;
 import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
 import com.bookease.bookease.dtos.ticket.TicketResponseDTO;
+import com.bookease.bookease.exceptions.EventFullException;
 import com.bookease.bookease.repositories.EventRepository;
 import com.bookease.bookease.repositories.TicketRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +18,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
 class TicketServiceTest {
 
@@ -85,13 +86,44 @@ class TicketServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw exception when trying to create ticket")
+    @DisplayName("Should throw entity not found exception when trying to create ticket")
     void createTicketCase2() {
+        when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> ticketService.createTicket(ticketRequestDTO))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("Event not found with ID: " + eventId);
+
+
+        // Verify only the methods that should be called before the exception
+        verify(eventRepository).findById(eventId);
+        // These should never be called because the exception is thrown first
+        verify(ticketRepository, never()).countByEventId(anyString());
+        verify(ticketMapper, never()).toEntity(any());
+        verify(ticketRepository, never()).save(any());
+        verify(ticketMapper, never()).toTicketResponseDTO(any());
     }
 
     @Test
     @DisplayName("Should throw eventFullException when trying to create ticket")
     void createTicketCase3() {
+        when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
+        when(ticketRepository.countByEventId(eventId)).thenReturn(100l);
+
+
+        assertThatThrownBy(() -> ticketService.createTicket(ticketRequestDTO))
+                .isInstanceOf(EventFullException.class)
+                .hasMessage("Event is already full.");
+
+        verify(eventRepository).findById(eventId);
+        verify(ticketRepository).countByEventId(eventId);
+
+        // These should never be called because the exception is thrown first
+        verify(ticketMapper, never()).toEntity(any());
+        verify(ticketRepository, never()).save(any());
+        verify(ticketMapper, never()).toTicketResponseDTO(any());
+
+
     }
 
 

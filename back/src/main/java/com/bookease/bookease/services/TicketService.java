@@ -25,7 +25,7 @@ public class TicketService {
         public TicketResponseDTO createTicket(TicketRequestDTO ticketData ){
 
             Event event = eventRepository.findById(ticketData.eventId())
-                    .orElseThrow(() -> new RuntimeException("Event not found with ID: " + ticketData.eventId()));
+                    .orElseThrow(() -> new EntityNotFoundException("Event not found with ID: " + ticketData.eventId()));
 
             long bookedTickets = ticketRepository.countByEventId(ticketData.eventId());
 
