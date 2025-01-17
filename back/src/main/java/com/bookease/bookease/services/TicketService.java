@@ -18,25 +18,25 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class TicketService {
-    private final TicketRepository ticketRepository;
-    private final EventRepository eventRepository;
-    private final TicketMapper ticketMapper;
+        private final TicketRepository ticketRepository;
+        private final EventRepository eventRepository;
+        private final TicketMapper ticketMapper;
 
-    public TicketResponseDTO createTicket(TicketRequestDTO ticketData ){
+        public TicketResponseDTO createTicket(TicketRequestDTO ticketData ){
 
-        Event event = eventRepository.findById(ticketData.eventId())
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + ticketData.eventId()));
+            Event event = eventRepository.findById(ticketData.eventId())
+                    .orElseThrow(() -> new RuntimeException("Event not found with ID: " + ticketData.eventId()));
 
-        long bookedTickets = ticketRepository.countByEventId(ticketData.eventId());
+            long bookedTickets = ticketRepository.countByEventId(ticketData.eventId());
 
-        if(bookedTickets >= event.getCapacity()){
-            throw new EventFullException("Event is already full.");
+            if(bookedTickets >= event.getCapacity()){
+                throw new EventFullException("Event is already full.");
+            }
+
+            Ticket savedTicket = ticketRepository.save(ticketMapper.toEntity(ticketData));
+            return ticketMapper.toTicketResponseDTO(savedTicket);
+
         }
-
-        Ticket savedTicket = ticketRepository.save(ticketMapper.toEntity(ticketData));
-        return ticketMapper.toTicketResponseDTO(savedTicket);
-
-    }
 
 
     public Set<TicketResponseDTO> getAllTickets(){
