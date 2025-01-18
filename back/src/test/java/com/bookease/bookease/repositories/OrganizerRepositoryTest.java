@@ -57,6 +57,8 @@ class OrganizerRepositoryTest {
                     assertThat(org.getEmail()).isEqualTo("user.ig@example.com");
                     assertThat(org.getRole()).isEqualTo(Role.ORGANIZER);
                 });
+
+
     }
 
     @Test
