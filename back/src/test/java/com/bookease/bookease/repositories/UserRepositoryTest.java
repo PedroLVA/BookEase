@@ -1,5 +1,4 @@
 package com.bookease.bookease.repositories;
-
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.Role;
 import com.bookease.bookease.domain.User;
@@ -10,11 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-
 import java.time.LocalDateTime;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -38,10 +35,8 @@ class UserRepositoryTest {
         user.setPhoneNumber("+1234567890");
         user.setDateOfBirth(LocalDateTime.now());
         user.setRole(Role.USER);
-
         entityManager.persist(user);
         entityManager.flush();
-
     }
 
     @Test
