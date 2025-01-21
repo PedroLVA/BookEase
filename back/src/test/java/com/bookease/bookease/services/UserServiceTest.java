@@ -17,7 +17,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
@@ -86,6 +88,7 @@ class UserServiceTest {
 
 
     @Test
+    @DisplayName("Should return the correct list of users")
     void getAllUsers() {
         User user1 = new User();
         user1.setId("1");
@@ -134,10 +137,29 @@ class UserServiceTest {
     }
 
     @Test
+    @DisplayName("Should return the newly registered user")
     void registerNewUser() {
+        User mockUser = this.mockUser;
+
+        Mockito.when(userRepository.save(mockUser)).thenReturn(mockUser);
+
+        User result = userService.registerNewUser(mockUser);
+
+        assertNotNull(result);
+
+        assertEquals(mockUser.getId(), result.getId());
+
     }
 
     @Test
+    @DisplayName("Should return the correct user with the correct id")
     void getUserById() {
+        User mockUser = this.mockUser;
+
+        Mockito.when(userRepository.findById(mockUser.getId())).thenReturn(Optional.of(mockUser));
+
+        User result = userService.getUserById(mockUser.getId());
+
+        assertEquals(mockUser.getId(), result.getId());
     }
 }
