@@ -4,6 +4,7 @@ import com.bookease.bookease.domain.Role;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.repositories.UserRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -161,5 +162,19 @@ class UserServiceTest {
         User result = userService.getUserById(mockUser.getId());
 
         assertEquals(mockUser.getId(), result.getId());
+    }
+
+    @Test
+    @DisplayName("Should throw exception when user not found by ID")
+    void getUserById_NotFound() {
+        String userId = "nonexistent-id";
+        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> userService.getUserById(userId));
+    }
+
+    @AfterEach
+    void cleanup() {
+        SecurityContextHolder.clearContext();
     }
 }
