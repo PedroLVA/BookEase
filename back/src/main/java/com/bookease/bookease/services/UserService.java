@@ -24,8 +24,14 @@ public class UserService {
         return user;
 
     }
+
     public User getUserByEmail(String email){
-        return (User) userRepository.findByEmail(email);
+        User user = (User) userRepository.findByEmail(email);
+
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+        return user;
 
     }
 

@@ -65,7 +65,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("Should return correct user")
-    void getCurrentuserCase1() {
+    void getCurrentuser() {
 
         //Mock the user
         String userEmail = "example@gmail.com";
@@ -85,6 +85,19 @@ class UserServiceTest {
         // Then
         assertNotNull(result);
         assertEquals(userEmail, result.getEmail());
+    }
+
+    @Test
+    @DisplayName("Should throw exception when user not found by email")
+    void getCurrentUser_UserNotFound() {
+        // Mock authentication
+        Mockito.when(SecurityContextHolder.getContext().getAuthentication().getName())
+                .thenReturn(userEmail);
+
+        // Mock repository to return null
+        Mockito.when(userRepository.findByEmail(userEmail)).thenReturn(null);
+
+        assertThrows(RuntimeException.class, () -> userService.getCurrentuser());
     }
 
 
