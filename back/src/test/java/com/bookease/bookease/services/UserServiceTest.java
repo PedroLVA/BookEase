@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -146,6 +147,26 @@ class UserServiceTest {
         assertEquals(user2.getEmail(), result.get(1).email());
         assertEquals(user2.getPhoneNumber(), result.get(1).phoneNumber());
         assertEquals(user2.getDateOfBirth(), result.get(1).dateOfBirth());
+
+        Mockito.verify(userRepository, Mockito.times(1)).findAll();
+    }
+
+    @Test
+    @DisplayName("Should return an empty list")
+    void getAllUsers_EmptyListReturn() {
+
+
+        Mockito.when(userRepository.findAll()).thenReturn(Collections.emptyList());
+
+        // When
+        List<UserGetResponseDTO> result = userService.getAllUsers();
+
+        // Then
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+
+        // Verify first user
+
 
         Mockito.verify(userRepository, Mockito.times(1)).findAll();
     }
