@@ -40,6 +40,8 @@ public class UserService {
                         user.getPhoneNumber(),
                         user.getDateOfBirth()))
                 .collect(Collectors.toList());
+
+
     }
 
     public User registerNewUser(User user){
