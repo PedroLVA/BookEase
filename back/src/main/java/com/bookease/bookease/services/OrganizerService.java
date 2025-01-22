@@ -19,7 +19,7 @@ public class OrganizerService {
 
     }
 
-    public List<UserGetResponseDTO> getAllUsers(){
+    public List<UserGetResponseDTO> getAllOrganizers(){
         List<Organizer> users = organizerRepository.findAll();
         return users.stream()
                 .map(organizer -> new UserGetResponseDTO(
@@ -32,7 +32,7 @@ public class OrganizerService {
                 .collect(Collectors.toList());
     }
 
-    public User registerNewUser(Organizer organizer){
+    public User registerNewOrganizer(Organizer organizer){
         return this.organizerRepository.save(organizer);
     }
 }

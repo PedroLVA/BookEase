@@ -13,7 +13,7 @@ public class OrganizerController {
 
     @GetMapping("/get-all")
     public List<UserGetResponseDTO> getAllUsers() {
-        return  this.organizerService.getAllUsers();
+        return  this.organizerService.getAllOrganizers();
     }
 
 
