@@ -3,8 +3,10 @@ package com.bookease.bookease.services;
 import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.dtos.category.CategoryRequestDTO;
 import com.bookease.bookease.repositories.CategoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,7 +17,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 class CategoryServiceTest {
 
@@ -43,6 +48,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("Should get all categories given a list of ids")
     void getAllCategoriesById() {
 
         Category secondCateogry = new Category();
@@ -63,6 +69,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("Should sucessfully create a category")
     void createCategory() {
         CategoryRequestDTO data = new CategoryRequestDTO("Dto desc", "categoryName");
         Category category = new Category(data);
@@ -77,6 +84,30 @@ class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("Should successfully delete a category by id")
     void deleteCategory() {
+        Mockito.when(categoryRepository.existsById(mockCategory.getId())).thenReturn(true);
+        categoryService.deleteCategory(mockCategory.getId());
+
+
+        Mockito.verify(categoryRepository, Mockito.times(1)).existsById(mockCategory.getId());
+        Mockito.verify(categoryRepository, Mockito.times(1)).deleteById(mockCategory.getId());
+
+    }
+
+    @Test
+    @DisplayName("Should throw an exception when category is not found")
+    void deleteCategoryCase2() {
+        Mockito.when(categoryRepository.existsById(mockCategory.getId())).thenReturn(false);
+
+
+        assertThatThrownBy(() -> categoryService.deleteCategory(mockCategory.getId()))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Category with ID " + mockCategory.getId() + " does not exist");
+
+        Mockito.verify(categoryRepository, Mockito.times(1)).existsById(mockCategory.getId());
+
+        Mockito.verify(categoryRepository, never()).deleteById(mockCategory.getId());
+
     }
 }
