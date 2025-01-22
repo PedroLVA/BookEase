@@ -2,6 +2,7 @@ package com.bookease.bookease.services;
 
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.Role;
+import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.repositories.OrganizerRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -98,5 +99,14 @@ class OrganizerServiceTest {
     @Test
     @DisplayName("Should register new organizer successfully")
     void registerNewOrganizer() {
+        Mockito.when(organizerRepository.save(mockOrganizer)).thenReturn(mockOrganizer);
+
+        User result = organizerService.registerNewOrganizer(mockOrganizer);
+
+        assertNotNull(result);
+        assertEquals(result.getId(), mockOrganizer.getId());
+
+        Mockito.verify(organizerRepository, Mockito.times(1)).save(mockOrganizer);
+
     }
 }
