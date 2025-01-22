@@ -1,5 +1,4 @@
 package com.bookease.bookease.services;
-
 import com.bookease.bookease.domain.*;
 import com.bookease.bookease.dtos.mappers.TicketMapper;
 import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -74,7 +72,6 @@ class TicketServiceTest {
         assertThat(result).isNotNull()
                 .isEqualTo(ticketResponseDTO);
 
-
         verify(eventRepository).findById(eventId);
         verify(ticketRepository).countByEventId(eventId);
         verify(ticketMapper).toEntity(ticketRequestDTO);
@@ -92,10 +89,8 @@ class TicketServiceTest {
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Event not found with ID: " + eventId);
 
-
-        // Verify only the methods that should be called before the exception
         verify(eventRepository).findById(eventId);
-        // These should never be called because the exception is thrown first
+
         verify(ticketRepository, never()).countByEventId(anyString());
         verify(ticketMapper, never()).toEntity(any());
         verify(ticketRepository, never()).save(any());

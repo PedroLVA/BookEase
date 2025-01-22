@@ -5,7 +5,6 @@ import com.bookease.bookease.domain.Role;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.repositories.OrganizerRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class OrganizerServiceTest {
 

@@ -1,10 +1,8 @@
 package com.bookease.bookease.services;
-
 import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.dtos.category.CategoryRequestDTO;
 import com.bookease.bookease.repositories.CategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,9 +16,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 
 class CategoryServiceTest {
 
