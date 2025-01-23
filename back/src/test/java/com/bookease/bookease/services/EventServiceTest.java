@@ -6,6 +6,7 @@ import com.bookease.bookease.domain.Role;
 import com.bookease.bookease.dtos.event.EventRequestDTO;
 import com.bookease.bookease.dtos.mappers.EventMapper;
 import com.bookease.bookease.repositories.EventRepository;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -90,11 +92,28 @@ class EventServiceTest {
     }
 
     @Test
+    @DisplayName("Should return the right event given the id")
     void getEventById() {
+        Mockito.when(eventRepository.findById(mockEvent.getId())).thenReturn(Optional.of(mockEvent));
+
+        Optional<Event> result = eventService.getEventById(mockEvent.getId());
+
+        AssertionsForClassTypes.assertThat(result)
+                .isPresent() // verifies Optional contains a value
+                .hasValueSatisfying(event -> {
+                    AssertionsForClassTypes.assertThat(event.getName()).isEqualTo("Mock");
+                    AssertionsForClassTypes.assertThat(event.getDescription()).isEqualTo("Mock desc");
+                    AssertionsForClassTypes.assertThat(event.getStartingDate()).isEqualTo(LocalDateTime.parse("2024-09-05T16:00:00"));
+                });
+
+        Mockito.verify(eventRepository, Mockito.times(1)).findById(mockEvent.getId());
+
+
     }
 
     @Test
     void getAllEvents() {
+
     }
 
     @Test
