@@ -36,6 +36,8 @@ class EventServiceTest {
 
     private Organizer mockOrganizer;
 
+    private Event mockEvent;
+
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
@@ -69,6 +71,22 @@ class EventServiceTest {
 
         mockOrganizer = organizer;
 
+
+        Event mockEvent = new Event();
+        mockEvent.setId("e1");
+        mockEvent.setName("Mock");
+        mockEvent.setDescription("Mock desc");
+        mockEvent.setStartingDate(LocalDateTime.parse("2024-09-05T16:00:00"));
+        mockEvent.setEndingDate(LocalDateTime.parse("2024-10-05T16:00:00"));
+        mockEvent.setCapacity(100);
+        mockEvent.setAddress("101 Code Street");
+        mockEvent.setCity("Sorocaba");
+        mockEvent.setState("SP");
+        mockEvent.setOrganizer(mockOrganizer);
+
+        this.mockEvent = mockEvent;
+
+
     }
 
     @Test
@@ -82,17 +100,6 @@ class EventServiceTest {
     @Test
     @DisplayName("Should create event successfully and return the right event")
     void createEvent() {
-        Event mockEvent = new Event();
-        mockEvent.setId("e1");
-        mockEvent.setName("Mock");
-        mockEvent.setDescription("Mock desc");
-        mockEvent.setStartingDate(LocalDateTime.parse("2024-09-05T16:00:00"));
-        mockEvent.setEndingDate(LocalDateTime.parse("2024-10-05T16:00:00"));
-        mockEvent.setCapacity(100);
-        mockEvent.setAddress("101 Code Street");
-        mockEvent.setCity("Sorocaba");
-        mockEvent.setState("SP");
-        mockEvent.setOrganizer(mockOrganizer);
 
         Mockito.when(eventMapper.toEntity(mockEventRequestDTO, mockOrganizer)).thenReturn(mockEvent);
 
