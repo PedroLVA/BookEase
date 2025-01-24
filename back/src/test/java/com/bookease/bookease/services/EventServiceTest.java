@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -56,7 +55,7 @@ class EventServiceTest {
         LocalDateTime startDate = LocalDateTime.parse("2024-09-05T16:00:00");
         LocalDateTime endDate = LocalDateTime.parse("2024-10-05T16:00:00");
 
-        EventRequestDTO eventRequestDTO = new EventRequestDTO("Mock",
+        mockEventRequestDTO = new EventRequestDTO("Mock",
                 "Mock desc",
                 startDate,
                 endDate,
@@ -65,8 +64,6 @@ class EventServiceTest {
                 "Sorocaba",
                 "SP",
                 "10");
-
-        mockEventRequestDTO = eventRequestDTO;
 
         Organizer organizer = new Organizer();
         //config inicial
