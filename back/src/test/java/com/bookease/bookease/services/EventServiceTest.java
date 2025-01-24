@@ -95,7 +95,6 @@ class EventServiceTest {
 
         this.mockEvent = mockEvent;
 
-
     }
 
     @Test
@@ -114,7 +113,6 @@ class EventServiceTest {
                 });
 
         Mockito.verify(eventRepository, Mockito.times(1)).findById(mockEvent.getId());
-
 
     }
 
@@ -200,7 +198,11 @@ class EventServiceTest {
     }
 
     @Test
+    @DisplayName("Should save event sucessfully, the eventRepository method should be called 1 time")
     void saveEvent() {
+        eventService.saveEvent(mockEvent);
+
+        Mockito.verify(eventRepository,Mockito.times(1)).save(mockEvent);
     }
 
     @Test

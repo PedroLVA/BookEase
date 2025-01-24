@@ -52,6 +52,8 @@ public class EventService {
 
     }
 
+
+    //Should throw exception if we can't create event
     public Event createEvent(EventRequestDTO request, Organizer organizer){
 
         return eventRepository.save(eventMapper.toEntity(request, organizer));
