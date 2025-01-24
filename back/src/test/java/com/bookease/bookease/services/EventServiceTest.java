@@ -206,6 +206,13 @@ class EventServiceTest {
     }
 
     @Test
-    void deleteEvent() {
+    @DisplayName("Should delete event successfully")
+    void deleteEventCaseSucess() {
+        Mockito.when(eventRepository.existsById(mockEvent.getId())).thenReturn(true);
+        eventService.deleteEvent(mockEvent.getId());
+
+        Mockito.verify(eventRepository, Mockito.times(1)).existsById(mockEvent.getId());
+        Mockito.verify(eventRepository, Mockito.times(1)).deleteById(mockEvent.getId());
+
     }
 }
