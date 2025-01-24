@@ -6,7 +6,9 @@ import com.bookease.bookease.domain.Role;
 import com.bookease.bookease.dtos.event.EventGetResponseDTO;
 import com.bookease.bookease.dtos.event.EventRequestDTO;
 import com.bookease.bookease.dtos.mappers.EventMapper;
+import com.bookease.bookease.exceptions.EventFullException;
 import com.bookease.bookease.repositories.EventRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -210,6 +213,22 @@ class EventServiceTest {
 
         Mockito.verify(eventRepository, Mockito.times(1)).existsById(mockEvent.getId());
         Mockito.verify(eventRepository, Mockito.times(1)).deleteById(mockEvent.getId());
+
+    }
+
+    @Test
+    @DisplayName("Should throw exception because couldn't find event")
+    void deleteEventCaseException() {
+        Mockito.when(eventRepository.existsById(mockEvent.getId())).thenReturn(false);
+
+
+        assertThatThrownBy(() -> eventService.deleteEvent(mockEvent.getId()))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Event with ID " + mockEvent.getId() + " does not exist");
+
+        Mockito.verify(eventRepository, Mockito.times(1)).existsById(mockEvent.getId());
+        Mockito.verify(eventRepository, Mockito.never()).deleteById(mockEvent.getId());
+
 
     }
 }
