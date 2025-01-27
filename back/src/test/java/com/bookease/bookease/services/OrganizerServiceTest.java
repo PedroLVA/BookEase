@@ -36,7 +36,7 @@ class OrganizerServiceTest {
         MockitoAnnotations.openMocks(this);
 
         Organizer organizer = new Organizer();
-        //config inicial
+
         organizer.setId("53736b4c-c5cf-4d17-bb5b-e1fa70a3010c");
         organizer.setName("organizer");
         organizer.setEmail("organizer.ig@example.com");
@@ -58,7 +58,7 @@ class OrganizerServiceTest {
         Optional<Organizer> foundOrganizer = organizerService.getOrganizerByEmail(mockOrganizer.getEmail());
 
         assertThat(foundOrganizer)
-                .isPresent() // verifies Optional contains a value
+                .isPresent()
                 .hasValueSatisfying(org -> {
                     assertThat(org.getName()).isEqualTo("organizer");
                     assertThat(org.getEmail()).isEqualTo("organizer.ig@example.com");
@@ -72,7 +72,6 @@ class OrganizerServiceTest {
     void getAllOrganizers() {
 
         Organizer mockOrganizer2 = new Organizer();
-        //config inicial
         mockOrganizer2.setId("53736b5c-c5cf-4d17-bb5b-e1fa70a3010c");
         mockOrganizer2.setName("mockOrganizer2");
         mockOrganizer2.setEmail("mockOrganizer2.ig@example.com");
