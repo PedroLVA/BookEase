@@ -1,5 +1,6 @@
 package com.bookease.bookease.services;
 
+import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.domain.Event;
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.Role;
@@ -8,6 +9,7 @@ import com.bookease.bookease.dtos.event.EventRequestDTO;
 import com.bookease.bookease.dtos.mappers.EventMapper;
 import com.bookease.bookease.exceptions.EventFullException;
 import com.bookease.bookease.repositories.EventRepository;
+import com.bookease.bookease.repositories.specification.EventSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -52,9 +55,6 @@ class EventServiceTest {
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
-        //Setup
-        //event request DTO
-
         LocalDateTime startDate = LocalDateTime.parse("2024-09-05T16:00:00");
         LocalDateTime endDate = LocalDateTime.parse("2024-10-05T16:00:00");
 
@@ -69,7 +69,7 @@ class EventServiceTest {
                 "10");
 
         Organizer organizer = new Organizer();
-        //config inicial
+
         organizer.setId("53736b4c-c5cf-4d17-bb5b-e1fa70a3010c");
         organizer.setName("organizer");
         organizer.setEmail("organizer.ig@example.com");
@@ -105,7 +105,7 @@ class EventServiceTest {
         Optional<Event> result = eventService.getEventById(mockEvent.getId());
 
         AssertionsForClassTypes.assertThat(result)
-                .isPresent() // verifies Optional contains a value
+                .isPresent()
                 .hasValueSatisfying(event -> {
                     AssertionsForClassTypes.assertThat(event.getName()).isEqualTo("Mock");
                     AssertionsForClassTypes.assertThat(event.getDescription()).isEqualTo("Mock desc");
@@ -143,18 +143,18 @@ class EventServiceTest {
                         event.getDescription(),
                         event.getStartingDate(),
                         event.getEndingDate(),
-                        true, // Assuming event is active by default
-                        LocalDateTime.now(), // Assuming publishing date is now, change if necessary
+                        true,
+                        LocalDateTime.now(),
                         event.getAddress(),
                         event.getCity(),
                         event.getState(),
-                        "", // Assuming homeNumber is empty, update as needed
+                        "",
                         event.getCapacity(),
                         event.getOrganizer().getId(),
-                        new HashSet<>(), // Assuming no ticket IDs, update as needed
-                        new HashSet<>(), // Assuming no attendees, update as needed
-                        new HashSet<>(), // Assuming no categories, update as needed
-                        new HashSet<>()  // Assuming no images, update as needed
+                        new HashSet<>(),
+                        new HashSet<>(),
+                        new HashSet<>(),
+                        new HashSet<>()
                 ))
                 .collect(Collectors.toList());
 
