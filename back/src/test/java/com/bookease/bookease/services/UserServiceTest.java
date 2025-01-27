@@ -40,15 +40,11 @@ class UserServiceTest {
     void setup(){
         MockitoAnnotations.openMocks(this);
 
-        // Mock Security Context
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Authentication authentication = Mockito.mock(Authentication.class);
 
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
-
-        //Here goes all the initial config
-        //mock user
 
         User mockUser = new User();
         mockUser.setId("53736b4c-c5cf-4d17-bb5b-e1fa70a3010c");
@@ -67,22 +63,16 @@ class UserServiceTest {
     @DisplayName("Should return correct user")
     void getCurrentuser() {
 
-        //Mock the user
         String userEmail = "example@gmail.com";
         User mockUser = this.mockUser;
 
-
-        // Mock authentication to return user email
         Mockito.when(SecurityContextHolder.getContext().getAuthentication().getName())
                 .thenReturn(userEmail);
 
-        // Mock userRepository response
         Mockito.when(userRepository.findByEmail(userEmail)).thenReturn(mockUser);
 
-        // When
         User result = userService.getCurrentuser();
 
-        // Then
         assertNotNull(result);
         assertEquals(userEmail, result.getEmail());
     }
@@ -94,7 +84,6 @@ class UserServiceTest {
         Mockito.when(SecurityContextHolder.getContext().getAuthentication().getName())
                 .thenReturn(userEmail);
 
-        // Mock repository to return null
         Mockito.when(userRepository.findByEmail(userEmail)).thenReturn(null);
 
         assertThrows(RuntimeException.class, () -> userService.getCurrentuser());
@@ -124,14 +113,11 @@ class UserServiceTest {
 
         Mockito.when(userRepository.findAll()).thenReturn(mockUsers);
 
-        // When
         List<UserGetResponseDTO> result = userService.getAllUsers();
 
-        // Then
         assertNotNull(result);
         assertEquals(2, result.size());
 
-        // Verify first user
         assertEquals(user1.getId(), result.get(0).id());
         assertEquals(user1.getRole(), result.get(0).role());
         assertEquals(user1.getName(), result.get(0).name());
@@ -139,7 +125,6 @@ class UserServiceTest {
         assertEquals(user1.getPhoneNumber(), result.get(0).phoneNumber());
         assertEquals(user1.getDateOfBirth(), result.get(0).dateOfBirth());
 
-        // Verify second user
         assertEquals(user2.getId(), result.get(1).id());
         assertEquals(user2.getRole(), result.get(1).role());
         assertEquals(user2.getName(), result.get(1).name());
@@ -157,15 +142,10 @@ class UserServiceTest {
 
         Mockito.when(userRepository.findAll()).thenReturn(Collections.emptyList());
 
-        // When
         List<UserGetResponseDTO> result = userService.getAllUsers();
 
-        // Then
         assertNotNull(result);
         assertTrue(result.isEmpty());
-
-        // Verify first user
-
 
         Mockito.verify(userRepository, Mockito.times(1)).findAll();
     }

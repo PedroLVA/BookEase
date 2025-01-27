@@ -103,7 +103,6 @@ class TicketServiceTest {
         when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
         when(ticketRepository.countByEventId(eventId)).thenReturn(100l);
 
-
         assertThatThrownBy(() -> ticketService.createTicket(ticketRequestDTO))
                 .isInstanceOf(EventFullException.class)
                 .hasMessage("Event is already full.");
