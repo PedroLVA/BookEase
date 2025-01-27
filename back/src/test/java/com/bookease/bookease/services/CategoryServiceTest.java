@@ -33,7 +33,7 @@ class CategoryServiceTest {
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
-        //gonna mock some categories
+
         Category mockCategory = new Category();
 
         mockCategory.setId("1");
