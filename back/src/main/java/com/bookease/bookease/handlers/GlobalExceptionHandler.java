@@ -1,5 +1,7 @@
 package com.bookease.bookease.handlers;
 import com.bookease.bookease.exceptions.EventFullException;
+import com.bookease.bookease.exceptions.ForbiddenException;
+import com.bookease.bookease.exceptions.NotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -52,6 +54,24 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleEventFullException(EventFullException ex) {
         ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.valueOf(400), ex.getMessage());
         errorDetail.setProperty("acess_denied_reason", "Event is full");
+        errorDetail.setProperty("timestamp", LocalDateTime.now()); // Optional metadata
+        return errorDetail;
+
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ProblemDetail handleForbiddenException(EventFullException ex) {
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+        errorDetail.setProperty("acess_denied_reason", "An unexpected error occurred");
+        errorDetail.setProperty("timestamp", LocalDateTime.now()); // Optional metadata
+        return errorDetail;
+
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ProblemDetail handleNotFoundException(EventFullException ex) {
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        errorDetail.setProperty("acess_denied_reason", "An unexpected error occurred");
         errorDetail.setProperty("timestamp", LocalDateTime.now()); // Optional metadata
         return errorDetail;
 
