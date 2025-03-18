@@ -1,4 +1,4 @@
-# 📚 BookEase - SpringBoot Backend for Ticket and Movie Management
+# 📚 BookEase - SpringBoot Backend for Ticket and Event Management
 BookEase is a SpringBoot-based backend application designed to manage tickets and movies. This project was developed for learning purposes, focusing on implementing more complex business logic within a monolithic architecture using the layered architecture pattern.
 
 ## 🚀 Features
