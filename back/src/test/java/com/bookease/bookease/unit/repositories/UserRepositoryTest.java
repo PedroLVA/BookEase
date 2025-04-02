@@ -1,7 +1,8 @@
-package com.bookease.bookease.repositories;
+package com.bookease.bookease.unit.repositories;
 import com.bookease.bookease.domain.Organizer;
 import com.bookease.bookease.domain.Role;
 import com.bookease.bookease.domain.User;
+import com.bookease.bookease.repositories.UserRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

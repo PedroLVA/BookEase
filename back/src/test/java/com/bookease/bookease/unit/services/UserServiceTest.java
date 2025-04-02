@@ -1,9 +1,10 @@
-package com.bookease.bookease.services;
+package com.bookease.bookease.unit.services;
 
 import com.bookease.bookease.domain.Role;
 import com.bookease.bookease.domain.User;
 import com.bookease.bookease.dtos.user.UserGetResponseDTO;
 import com.bookease.bookease.repositories.UserRepository;
+import com.bookease.bookease.services.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package com.bookease.bookease.services;
+package com.bookease.bookease.unit.services;
 
 import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.domain.Event;
@@ -10,6 +10,7 @@ import com.bookease.bookease.dtos.mappers.EventMapper;
 import com.bookease.bookease.exceptions.EventFullException;
 import com.bookease.bookease.repositories.EventRepository;
 import com.bookease.bookease.repositories.specification.EventSpecifications;
+import com.bookease.bookease.services.EventService;
 import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;

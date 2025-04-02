@@ -1,7 +1,8 @@
-package com.bookease.bookease.services;
+package com.bookease.bookease.unit.services;
 import com.bookease.bookease.domain.Category;
 import com.bookease.bookease.dtos.category.CategoryRequestDTO;
 import com.bookease.bookease.repositories.CategoryRepository;
+import com.bookease.bookease.services.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

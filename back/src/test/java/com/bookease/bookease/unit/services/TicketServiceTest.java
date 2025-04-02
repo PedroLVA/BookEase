@@ -1,4 +1,4 @@
-package com.bookease.bookease.services;
+package com.bookease.bookease.unit.services;
 import com.bookease.bookease.domain.*;
 import com.bookease.bookease.dtos.mappers.TicketMapper;
 import com.bookease.bookease.dtos.ticket.TicketRequestDTO;
@@ -6,6 +6,7 @@ import com.bookease.bookease.dtos.ticket.TicketResponseDTO;
 import com.bookease.bookease.exceptions.EventFullException;
 import com.bookease.bookease.repositories.EventRepository;
 import com.bookease.bookease.repositories.TicketRepository;
+import com.bookease.bookease.services.TicketService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
