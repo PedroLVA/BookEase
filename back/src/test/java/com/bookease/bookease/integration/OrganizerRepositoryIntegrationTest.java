@@ -55,7 +55,7 @@ public class OrganizerRepositoryIntegrationTest {
 
 
     @Test
-    public void findByEmail_OptinalOrganizerIsPresent(){
+    public void findByEmail_OptionalOrganizerIsPresent(){
         //arrange
         Organizer organizer1 = createTestOrganizer("example@gmail.com");
         organizerRepository.save(organizer1);
@@ -70,5 +70,15 @@ public class OrganizerRepositoryIntegrationTest {
         assertThat(returnedOrganizer.get().getEmail()).isEqualTo(organizer1.getEmail());
 
     }
+
+    @Test
+    public void findByEmail_returnsEmptyOptional_whenOrganizerDoesNotExist() {
+        // Act
+        Optional<Organizer> result = organizerRepository.findByEmail("nonexisting@gmail.com");
+
+        // Assert
+        assertThat(result).isEmpty();
+    }
+
 
 }
