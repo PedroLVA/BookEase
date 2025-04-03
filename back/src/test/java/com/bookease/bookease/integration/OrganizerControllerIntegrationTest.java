@@ -44,9 +44,6 @@ public class OrganizerControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private OrganizerService organizerService;
-
-    @Autowired
     private OrganizerRepository organizerRepository;
 
     @Autowired
