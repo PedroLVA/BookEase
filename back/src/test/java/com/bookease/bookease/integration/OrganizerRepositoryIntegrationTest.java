@@ -11,8 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -78,6 +77,16 @@ public class OrganizerRepositoryIntegrationTest {
 
         // Assert
         assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void findByEmail_returnsEmptyOptional_forEmptyString() {
+        assertThat(organizerRepository.findByEmail("")).isEmpty();
+    }
+
+    @Test
+    public void findByEmail_returnsEmptyOptional_forNull() {
+        assertThat(organizerRepository.findByEmail(null)).isEmpty();
     }
 
 
