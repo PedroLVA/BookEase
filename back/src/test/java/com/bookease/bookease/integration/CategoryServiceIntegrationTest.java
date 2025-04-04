@@ -65,5 +65,30 @@ public class CategoryServiceIntegrationTest {
         assertEquals("Fantasy", savedCategory.get().getName());
     }
 
+    @Test
+    public void createCategory_ShouldReturnOkResponse() {
+        // Arrange
+        CategoryRequestDTO requestDTO = createCategoryRequest("Science Fiction");
+
+        // Act
+        ResponseEntity response = categoryService.createCategory(requestDTO);
+
+        // Assert
+        assertEquals(200, response.getStatusCode().value());
+    }
+
+    @Test
+    public void createCategory_ShouldPersistCorrectData() {
+        // Arrange
+        CategoryRequestDTO requestDTO = createCategoryRequest("Mystery");
+
+        // Act
+        categoryService.createCategory(requestDTO);
+
+        // Assert
+        Category savedCategory = categoryRepository.findByName("Mystery").orElseThrow();
+        assertEquals("Mystery", savedCategory.getName());
+    }
+
 
 }
